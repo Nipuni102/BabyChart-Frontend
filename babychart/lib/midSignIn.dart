@@ -11,8 +11,8 @@ import 'package:outline_gradient_button/outline_gradient_button.dart';
 class MidSignInPage extends StatelessWidget {
   MidSignInPage({Key? key})
       : super(
-    key: key,
-  );
+          key: key,
+        );
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool rememberMeCheckbox = false;
@@ -81,7 +81,7 @@ class MidSignInPage extends StatelessWidget {
                                     buttonStyle: ButtonStyle(
                                       backgroundColor: MaterialStateProperty
                                           .all<Color>(Color(
-                                          0xFFDF32B9)), // Change this to your desired color
+                                              0xFFDF32B9)), // Change this to your desired color
                                     ),
                                   )
                                 ],
@@ -106,9 +106,9 @@ class MidSignInPage extends StatelessWidget {
                                     vertical: 15,
                                   ),
                                   decoration:
-                                  AppDecoration.outlinePrimary4.copyWith(
+                                      AppDecoration.outlinePrimary4.copyWith(
                                     borderRadius:
-                                    BorderRadiusStyle.roundedBorder16,
+                                        BorderRadiusStyle.roundedBorder16,
                                   ),
                                   child: Image(
                                       image: AssetImage('assets/facebook.png')),
@@ -122,9 +122,9 @@ class MidSignInPage extends StatelessWidget {
                                     vertical: 15,
                                   ),
                                   decoration:
-                                  AppDecoration.outlinePrimary4.copyWith(
+                                      AppDecoration.outlinePrimary4.copyWith(
                                     borderRadius:
-                                    BorderRadiusStyle.roundedBorder16,
+                                        BorderRadiusStyle.roundedBorder16,
                                   ),
                                   child: Image(
                                       image: AssetImage('assets/google.png')),
@@ -337,6 +337,6 @@ class MidSignInPage extends StatelessWidget {
 
   /// Navigates to the androidLarge19Screen when the action is triggered.
   onTapLogin(BuildContext context) {
-    Navigator.pushNamed(context, '/midSignUp');
+    Navigator.pushNamed(context, '/midHome');
   }
 }
