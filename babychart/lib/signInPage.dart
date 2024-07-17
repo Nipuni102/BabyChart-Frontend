@@ -1,4 +1,5 @@
 import 'package:babychart/auth/auth_service.dart';
+import 'package:babychart/signUpPage.dart';
 import 'package:babychart/theme/app_decorations.dart';
 import 'package:babychart/theme/custom_text_style.dart';
 import 'package:babychart/theme/theme_helper.dart';
@@ -90,9 +91,19 @@ class SignInPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 9),
-                            Text(
-                              "Forget password?",
-                              style: CustomTextStyles.titleMediumGreen400,
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SignUpPage()),
+                                );
+                              },
+                              child: Text(
+                                "Forget password?",
+                                style: CustomTextStyles.titleMediumGreen400,
+                              ),
                             ),
                             SizedBox(height: 9),
                             _buildLoginOptionsRow(context),
@@ -346,7 +357,7 @@ class SignInPage extends StatelessWidget {
           passwordController.text,
         );
 
-        Navigator.pushNamed(context, '/signUp');
+        Navigator.pushNamed(context, '/selectingPage');
         print('Login Successful: ${response['message']}');
       } catch (e) {
         // Handle error (e.g., show error message)
