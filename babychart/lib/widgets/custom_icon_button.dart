@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../theme/theme_helper.dart';
 
 extension IconButtonStyleHelper on CustomIconButton {
