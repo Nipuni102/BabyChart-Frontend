@@ -1,3 +1,4 @@
+import 'package:babychart/childRegister.dart';
 import 'package:babychart/kidsSelecting.dart';
 import 'package:babychart/responsiveNavBarPage.dart';
 import 'package:babychart/selectChild.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/midSignUp': (context) => MidSignUpPage(),
         '/kidsSelecting': (context) => KidsSelecting(),
         '/chart': (context) => Chart(),
+        '/childRegister': (context) => ChildRegister(),
       },
     );
   }

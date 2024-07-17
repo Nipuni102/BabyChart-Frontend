@@ -102,25 +102,30 @@ class SelectChild extends StatelessWidget {
   /// Section Widget
 
   Widget _buildAddChildSection(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 103,
-        vertical: 14,
-      ),
-      decoration: AppDecoration.outlinePrimaryContainer2.copyWith(
-        borderRadius: BorderRadiusStyle.roundedBorder21,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 34),
-          Image(image: AssetImage('assets/plus.png')),
-          SizedBox(height: 39),
-          Text(
-            "Add Child",
-            style: theme.textTheme.titleLarge,
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        onTapAddChildSection(context);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 103,
+          vertical: 14,
+        ),
+        decoration: AppDecoration.outlinePrimaryContainer2.copyWith(
+          borderRadius: BorderRadiusStyle.roundedBorder21,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 34),
+            Image(image: AssetImage('assets/plus.png')),
+            SizedBox(height: 39),
+            Text(
+              "Add Child",
+              style: theme.textTheme.titleLarge,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -130,4 +135,9 @@ class SelectChild extends StatelessWidget {
   onTapProfileSection(BuildContext context) {
     Navigator.pushNamed(context, '/nav');
   }
+
+  onTapAddChildSection(BuildContext context) {
+    Navigator.pushNamed(context, '/childRegister');
+  }
+
 }
