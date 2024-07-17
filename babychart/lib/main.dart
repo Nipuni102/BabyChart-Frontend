@@ -9,6 +9,8 @@ import 'package:babychart/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:babychart/charts.dart';
 import 'package:babychart/immunizationH.dart';
+import 'package:babychart/MidHome.dart';
+import 'package:babychart/enter_vaccination.dart';
 import 'CustomTabBarsPage.dart';
 import 'chart.dart';
 import 'midSignIn.dart';
@@ -47,6 +49,9 @@ class MyApp extends StatelessWidget {
         '/kidsSelecting': (context) => KidsSelecting(),
         '/chart': (context) => Chart(),
         '/childRegister': (context) => ChildRegister(),
+        '/midHome': (context) => MidHome(),
+        '/enterVaccination': (context) => EnterVaccination(),
+
       },
     );
   }
