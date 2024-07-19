@@ -357,7 +357,7 @@ class SignInPage extends StatelessWidget {
           passwordController.text,
         );
 
-        Navigator.pushNamed(context, '/selectingPage');
+        Navigator.pushNamed(context, '/selectChild');
         print('Login Successful: ${response['message']}');
       } catch (e) {
         // Handle error (e.g., show error message)
