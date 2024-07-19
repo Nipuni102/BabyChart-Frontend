@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MidAuthService {
-  final String baseUrl = "http://192.168.8.102:8000"; // Replace with your API base URL
+  final String baseUrl = "http://51.20.246.58"; // Replace with your API base URL
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
