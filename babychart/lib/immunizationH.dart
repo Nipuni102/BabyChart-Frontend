@@ -1,23 +1,13 @@
 import 'package:flutter/material.dart';
-//import 'package:babychart/description_page.dart';
 
-/*class immunizationH extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('First Page'),
-    );
-  }
-}*/
-
-class immunizationH extends StatelessWidget {
-  const immunizationH({super.key});
+class ImmunizationH extends StatelessWidget {
+  const ImmunizationH({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SafeArea(
-        child: Drawer(child: Column()),
+      appBar: AppBar(
+        title: const Text('Immunization'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -35,111 +25,19 @@ class immunizationH extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             GestureDetector(
-              /* onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return const description_page(
-                    title: 'How to get rich',
-                  );
-                }));
-                print('Click');
-              },
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        spreadRadius: 2,
-                        blurRadius: 2,
-                        offset: Offset(
-                          2.0,
-                          2.0,
-                        ),
-                      )
-                    ]),
-                child: Column(
-                  children: [
-                    const ListTile(
-                      title: Text('How to get rich'),
-                      trailing: Icon(Icons.arrow_forward_ios_rounded),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(
-                        2.0,
-                        2.0,
-                      ),
-                    )
-                  ]),
-              child: Column(
-                children: [
-                  const ListTile(
-                    title: Text('How to get rich'),
-                    trailing: Icon(Icons.arrow_forward_ios_rounded),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(
-                        2.0,
-                        2.0,
-                      ),
-                    )
-                  ]),
-              child: Column(
-                children: [
-                  const ListTile(
-                    title: Text('How to get rich'),
-                    trailing: Icon(Icons.arrow_forward_ios_rounded),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}*/
-
               onTap: () {
                 // Handle onTap event
               },
-              child: CardWidget(
+              child: const CardWidget(
                   name: 'John Doe', batchNo: '12345', date: '2024-05-10'),
             ),
-            SizedBox(height: 10), // Add some space between cards
-            CardWidget(
+            const SizedBox(height: 10), // Add some space between cards
+            const CardWidget(
                 name: 'Jane Smith', batchNo: '54321', date: '2024-05-11'),
-            SizedBox(height: 10), // Add some space between cards
-            CardWidget(
+            const SizedBox(height: 10), // Add some space between cards
+            const CardWidget(
                 name: 'Alice Johnson', batchNo: '98765', date: '2024-05-12'),
           ],
         ),

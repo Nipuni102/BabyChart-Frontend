@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class EnterBatchNo extends StatelessWidget {
+
+  final String? scannedData;
+
+  EnterBatchNo({Key? key, required this.scannedData}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
