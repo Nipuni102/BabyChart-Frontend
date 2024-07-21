@@ -39,7 +39,7 @@ class MidHome extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 60),
             Expanded(
               child: ListView(
                 children: [

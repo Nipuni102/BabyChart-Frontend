@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  final String baseUrl = "http://192.168.8.102:8000"; // Replace with your API base URL
+  final String baseUrl = "http://51.20.246.58"; // Replace with your API base URL
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await http.post(
       Uri.parse("$baseUrl/login"),
       headers: {
+        'Accept': 'application/json', 
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
@@ -19,6 +20,8 @@ class AuthService {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
+      print('Failed to login. Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
       throw Exception('Failed to login');
     }
   }
@@ -40,6 +43,8 @@ class AuthService {
     if (response.statusCode == 201) {
       return jsonDecode(response.body);
     } else {
+      print('Failed to login. Status code: ${response.statusCode}');
+       print('Response body: ${response.body}');
       throw Exception('Failed to register');
     }
   }

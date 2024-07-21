@@ -347,7 +347,7 @@ class MidSignInPage extends StatelessWidget {
           passwordController.text,
         );
 
-        Navigator.pushNamed(context, '/selectingPage');
+        Navigator.pushNamed(context, '/midHome');
         print('Login Successful: ${response['message']}');
       } catch (e) {
         // Handle error (e.g., show error message)

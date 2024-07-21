@@ -1,4 +1,6 @@
+import 'package:babychart/childRegister.dart';
 import 'package:babychart/kidsSelecting.dart';
+import 'package:babychart/qrCodePage.dart';
 import 'package:babychart/responsiveNavBarPage.dart';
 import 'package:babychart/selectChild.dart';
 import 'package:babychart/selectingPage.dart';
@@ -53,13 +55,18 @@ class MyApp extends StatelessWidget {
         '/midSignUp': (context) => MidSignUpPage(),
         '/kidsSelecting': (context) => KidsSelecting(),
         '/chart': (context) => Chart(),
+        '/childRegister': (context) => ChildRegister(),
         '/midHome': (context) => MidHome(),
         '/enterVaccination': (context) => EnterVaccination(),
         '/addChildSecPage': (context) => AddNewChildSecScreen(),
         '/addChildThirdPage': (context) => AddNewChildThirdScreen(),
         '/addChildFirstPage': (context) => AddNewChildScreen(),
         '/addChildFourthPage': (context) => AddNewChildFourthScreen(),
+<<<<<<< HEAD
         // '/activity': (context) => ActivitiesScreen(),
+=======
+         '/qr': (context) => const QrCodePage(qrData: ''), 
+>>>>>>> 5cd1bfb48f704b536403d4d695eee4b9982df6d2
       },
     );
   }
