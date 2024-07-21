@@ -96,7 +96,8 @@ class SignInPage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => SignUpPage()),
+                                      builder: (context) =>
+                                          SignUpPage()),
                                 );
                               },
                               child: Text(
@@ -355,6 +356,7 @@ class SignInPage extends StatelessWidget {
           userNameController.text,
           passwordController.text,
         );
+
 
         //Navigator.pushNamed(context, '/nav');
 

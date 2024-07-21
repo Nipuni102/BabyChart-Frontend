@@ -14,6 +14,8 @@ import 'package:babychart/addChildFirstPage.dart';
 import 'package:babychart/addChildSecPage.dart';
 import 'package:babychart/addChildThirdPage.dart';
 import 'package:babychart/addChildFourthPage.dart';
+import 'package:babychart/activity.dart';
+//import 'package:babychart/childProfile.dart';
 import 'CustomTabBarsPage.dart';
 import 'chart.dart';
 import 'midSignIn.dart';
@@ -57,6 +59,7 @@ class MyApp extends StatelessWidget {
         '/addChildThirdPage': (context) => AddNewChildThirdScreen(),
         '/addChildFirstPage': (context) => AddNewChildScreen(),
         '/addChildFourthPage': (context) => AddNewChildFourthScreen(),
+        // '/activity': (context) => ActivitiesScreen(),
       },
     );
   }

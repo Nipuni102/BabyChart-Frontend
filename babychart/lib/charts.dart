@@ -4,12 +4,12 @@ import 'package:babychart/main.dart';
 import 'package:babychart/CustomTabBarsPage.dart';
 
 class Chart extends StatelessWidget {
-  const Chart ({super.key});
+  const Chart({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         backgroundColor: Colors.pink,
         title: const Text('BabyChart'),
         actions: [
@@ -18,7 +18,7 @@ class Chart extends StatelessWidget {
             onPressed: () {},
           ),
         ],
-      ),
+      ),*/
       body: Column(
         children: [
           Container(
