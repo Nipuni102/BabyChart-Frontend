@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 import 'enter_vaccination.dart';
-
-/*void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.pink,
-      ),
-      home: DashboardScreen(),
-    );
-  }
-}*/
+import 'addChildFirstPage.dart';
 
 class MidHome extends StatelessWidget {
   @override
@@ -54,7 +39,7 @@ class MidHome extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 40),
+            SizedBox(height: 60),
             Expanded(
               child: ListView(
                 children: [
@@ -63,7 +48,11 @@ class MidHome extends StatelessWidget {
                     'Register Users',
                     'assets/register_users.png', // Replace with your image path
                     () {
-                      // Handle Register Users button press
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddNewChildScreen()),
+                      );
                     },
                   ),
                   buildCard(

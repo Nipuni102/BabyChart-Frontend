@@ -12,6 +12,12 @@ import 'package:babychart/charts.dart';
 import 'package:babychart/immunizationH.dart';
 import 'package:babychart/MidHome.dart';
 import 'package:babychart/enter_vaccination.dart';
+import 'package:babychart/addChildFirstPage.dart';
+import 'package:babychart/addChildSecPage.dart';
+import 'package:babychart/addChildThirdPage.dart';
+import 'package:babychart/addChildFourthPage.dart';
+import 'package:babychart/activity.dart';
+//import 'package:babychart/childProfile.dart';
 import 'CustomTabBarsPage.dart';
 import 'chart.dart';
 import 'midSignIn.dart';
@@ -39,7 +45,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => WelcomePage(),
         '/nav': (context) => ResponsiveNavBarPage(),
-        '/immunization': (context) => immunizationH(),
+        '/immunization': (context) => ImmunizationH(),
         '/charts': (context) => Chart(),
         '/selectingPage': (context) => SelectingPage(),
         '/signIn': (context) => SignInPage(),
@@ -52,7 +58,14 @@ class MyApp extends StatelessWidget {
         '/childRegister': (context) => ChildRegister(),
         '/midHome': (context) => MidHome(),
         '/enterVaccination': (context) => EnterVaccination(),
+        '/addChildSecPage': (context) => AddNewChildSecScreen(),
+        '/addChildThirdPage': (context) => AddNewChildThirdScreen(),
+        '/addChildFirstPage': (context) => AddNewChildScreen(),
+        '/addChildFourthPage': (context) => AddNewChildFourthScreen(),
+
+        // '/activity': (context) => ActivitiesScreen(),
          '/qr': (context) => const QrCodePage(qrData: ''), 
+
       },
     );
   }

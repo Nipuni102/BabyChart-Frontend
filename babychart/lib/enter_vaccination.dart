@@ -3,7 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+//import 'package:babychart/theme/app_decorations.dart'
+import 'package:babychart/enter_Batch_No.dart';
+
 class EnterVaccination extends StatefulWidget {
+  
   @override
   _EnterVaccinationScreenState createState() => _EnterVaccinationScreenState();
 }
@@ -145,6 +149,11 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
         scannedData = scanData.code;
       });
       print('Scanned data: $scannedData'); // Debug statement
+      // Navigate to EnterBatchNo page after scanning the QR code
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EnterBatchNo(scannedData: scannedData)),
+      );
     });
   }
 
