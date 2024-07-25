@@ -31,14 +31,14 @@ class ImmunizationH extends StatelessWidget {
                 // Handle onTap event
               },
               child: const CardWidget(
-                  name: 'John Doe', batchNo: '12345', date: '2024-05-10'),
+                  vaccine: 'John Doe', batchNo: '12345', date: '2024-05-10'),
             ),
             const SizedBox(height: 10), // Add some space between cards
             const CardWidget(
-                name: 'Jane Smith', batchNo: '54321', date: '2024-05-11'),
+                vaccine: 'Jane Smith', batchNo: '54321', date: '2024-05-11'),
             const SizedBox(height: 10), // Add some space between cards
             const CardWidget(
-                name: 'Alice Johnson', batchNo: '98765', date: '2024-05-12'),
+                vaccine: 'Alice Johnson', batchNo: '98765', date: '2024-05-12'),
           ],
         ),
       ),
@@ -47,12 +47,12 @@ class ImmunizationH extends StatelessWidget {
 }
 
 class CardWidget extends StatelessWidget {
-  final String name;
+  final String vaccine;
   final String batchNo;
   final String date;
 
   const CardWidget({
-    required this.name,
+    required this.vaccine,
     required this.batchNo,
     required this.date,
     Key? key,
@@ -75,7 +75,7 @@ class CardWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        title: Text(name),
+        title: Text(vaccine),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

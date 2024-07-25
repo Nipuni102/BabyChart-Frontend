@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:babychart/activity.dart';
 
 class DevelopmentScreen extends StatefulWidget {
@@ -59,16 +59,15 @@ class _DevelopmentScreenState extends State<DevelopmentScreen> {
       child: ListTile(
         leading: Image.asset(
           imagePath,
-          width: 60,
-          height: 60,
+          width: 150,
+          height: 170,
         ),
         title: Text(
           title,
           style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.purple,
-          ),
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 238, 43, 127)),
         ),
         onTap: () {
           if (destination != null) {
@@ -81,4 +80,72 @@ class _DevelopmentScreenState extends State<DevelopmentScreen> {
       ),
     );
   }
+}*/
+
+import 'package:flutter/material.dart';
+import 'package:babychart/activity.dart';
+
+class DevelopmentScreen extends StatelessWidget {
+  final VoidCallback onNavigateToActivities;
+
+  const DevelopmentScreen({Key? key, required this.onNavigateToActivities}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              // Handle "Track Daily Habits" button press
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.pink,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+            ),
+            child: const Text(
+              'Track Daily Habits',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          buildOptionCard('Eyesight', 'assets/eyesight.jpeg', null),
+          buildOptionCard('Hearing', 'assets/hearing.jpeg', null),
+          buildOptionCard('Activities', 'assets/activities.jpeg', onNavigateToActivities),
+          buildOptionCard('Dental', 'assets/dental.jpeg', null),
+        ],
+      ),
+    );
+  }
+
+  Widget buildOptionCard(String title, String imagePath, VoidCallback? onTap) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: ListTile(
+        leading: Image.asset(
+          imagePath,
+          width: 60,
+          height: 60,
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.purple,
+          ),
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
 }
+
+
