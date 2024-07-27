@@ -15,22 +15,35 @@ class ChildRegisterThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Additional Information', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          _buildTextField(childBirthRegNumberController, 'Child Birth Registration Number', 'Enter registration number', required: false),
-          _buildTextField(weightController, 'Weight', 'Enter weight', keyboardType: TextInputType.number, required: false),
-          _buildTextField(motherIdController, 'Mother ID', 'Enter mother\'s ID'),
-          _buildTextField(midWifeIdController, 'Mid Wife ID', 'Enter midwife\'s ID'),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Additional Information'),
+        backgroundColor: Colors.pink,
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTextField(childBirthRegNumberController,
+                'Child Birth Registration Number', 'Enter registration number',
+                required: false),
+            _buildTextField(weightController, 'Weight', 'Enter weight',
+                keyboardType: TextInputType.number, required: false),
+            _buildTextField(
+                motherIdController, 'Mother ID', 'Enter mother\'s ID'),
+            _buildTextField(
+                midWifeIdController, 'Mid Wife ID', 'Enter midwife\'s ID'),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label, String hint, {bool required = true, TextInputType keyboardType = TextInputType.text}) {
+  Widget _buildTextField(
+      TextEditingController controller, String label, String hint,
+      {bool required = true, TextInputType keyboardType = TextInputType.text}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextFormField(
