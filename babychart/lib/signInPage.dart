@@ -96,8 +96,7 @@ class SignInPage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          SignUpPage()),
+                                      builder: (context) => SignUpPage()),
                                 );
                               },
                               child: Text(
@@ -356,13 +355,9 @@ class SignInPage extends StatelessWidget {
           userNameController.text,
           passwordController.text,
         );
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 5cd1bfb48f704b536403d4d695eee4b9982df6d2
         //Navigator.pushNamed(context, '/nav');
-        Navigator.pushNamed(context, '/selectChild');
+        //Navigator.pushNamed(context, '/selectChild');
         print('Login Successful: ${response['message']}');
       } catch (e) {
         // Handle error (e.g., show error message)

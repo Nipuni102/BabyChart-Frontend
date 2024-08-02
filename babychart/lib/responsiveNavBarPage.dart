@@ -318,7 +318,16 @@ class _ProfileIcon extends StatelessWidget {
     return PopupMenuButton<Menu>(
         icon: const Icon(Icons.person),
         offset: const Offset(0, 40),
-        onSelected: (Menu item) {},
+        onSelected: (Menu item) {
+          if (item == Menu.itemOne) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()),
+            );
+          }
+          // Handle other menu item actions here if needed
+        },
+        //onSelected: (Menu item) {},
         itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
               PopupMenuItem<Menu>(
                 value: Menu.itemOne,

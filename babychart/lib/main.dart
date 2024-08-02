@@ -62,11 +62,10 @@ class MyApp extends StatelessWidget {
         '/addChildThirdPage': (context) => AddNewChildThirdScreen(),
         '/addChildFirstPage': (context) => AddNewChildScreen(),
         '/addChildFourthPage': (context) => AddNewChildFourthScreen(),
-<<<<<<< HEAD
+
         // '/activity': (context) => ActivitiesScreen(),
-=======
-         '/qr': (context) => const QrCodePage(qrData: ''), 
->>>>>>> 5cd1bfb48f704b536403d4d695eee4b9982df6d2
+
+        '/qr': (context) => const QrCodePage(qrData: ''),
       },
     );
   }

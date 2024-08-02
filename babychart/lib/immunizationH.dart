@@ -6,9 +6,9 @@ class ImmunizationH extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: const Text('Immunization'),
-      ),
+      ),*/
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -30,10 +30,14 @@ class ImmunizationH extends StatelessWidget {
               onTap: () {
                 // Handle onTap event
               },
-              child: const CardWidget(
-                  vaccine: 'John Doe', batchNo: '12345', date: '2024-05-10'),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: const CardWidget(
+                    vaccine: 'John Doe', batchNo: '12345', date: '2024-05-10'),
+              ),
             ),
-            const SizedBox(height: 10), // Add some space between cards
+            const SizedBox(height: 10),
+            // Add some space between cards
             const CardWidget(
                 vaccine: 'Jane Smith', batchNo: '54321', date: '2024-05-11'),
             const SizedBox(height: 10), // Add some space between cards
@@ -61,6 +65,7 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -75,11 +80,17 @@ class CardWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        title: Text(vaccine),
+        //title: Text(vaccine),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(batchNo),
+            Text(vaccine),
+            //Text(batchNo),
+            Expanded(
+              child:
+                  Center(child: Text(batchNo)), // Center align the batch number
+            ),
             Text(date),
           ],
         ),
