@@ -1,20 +1,20 @@
-import 'dart:convert';
-
 import 'package:babychart/qrCodePage.dart';
-import 'package:babychart/theme/app_decorations.dart';
-import 'package:babychart/theme/custom_text_style.dart';
-import 'package:babychart/theme/theme_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:intl/intl.dart';
+import 'child_register_first_page.dart';
+import 'child_register_second_page.dart';
+import 'child_register_third_page.dart';
+import 'child_register_fourth_page.dart';
 
 class ChildRegister extends StatefulWidget {
-  const ChildRegister({Key? key}) : super(key: key);
-
   @override
   _ChildRegisterState createState() => _ChildRegisterState();
 }
 
 class _ChildRegisterState extends State<ChildRegister> {
+  final PageController _pageController = PageController();
   final _formKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
@@ -47,7 +47,75 @@ class _ChildRegisterState extends State<ChildRegister> {
     super.dispose();
   }
 
-   String formatChildData(Map<String, String> data) {
+  void _nextPage() {
+    if (_pageController.page! < 3) {
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
+    } else {
+      _submitForm();
+    }
+  }
+
+  void _prevPage() {
+    if (_pageController.page! > 0) {
+      _pageController.previousPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
+    }
+  }
+
+  void _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      final childData = {
+        'name': _nameController.text,
+        'dateOfBirth': _dateOfBirthController.text,
+        'hearing': _hearingController.text,
+        'height': _heightController.text,
+        'birthWeight': _birthWeightController.text,
+        'eyeSight': _eyeSightController.text,
+        'bloodGroup': _bloodGroupController.text,
+        'bmi': _bmiController.text,
+        'childBirthRegNumber': _childBirthRegNumberController.text,
+        'weight': _weightController.text,
+        'user_id': _motherIdController.text,
+        'midWifeId': _midWifeIdController.text,
+      };
+
+      final response = await http.post(
+        Uri.parse('http://51.20.246.58/children'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(childData),
+      );
+
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Child registered successfully!')),
+        );
+
+        final formattedData = formatChildData(childData);
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => QrCodePage(
+              qrData: formattedData,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to register child.')),
+        );
+      }
+    }
+  }
+
+  String formatChildData(Map<String, String> data) {
     return '''
     Name: ${data['name']}
     Date of Birth: ${data['dateOfBirth']}
@@ -64,152 +132,82 @@ class _ChildRegisterState extends State<ChildRegister> {
     ''';
   }
 
-void _submitForm() async {
-  if (_formKey.currentState!.validate()) {
-    final childData = {
-      'name': _nameController.text,
-      'dateOfBirth': _dateOfBirthController.text,
-      'hearing': _hearingController.text,
-      'height': _heightController.text,
-      'birthWeight': _birthWeightController.text,
-      'eyeSight': _eyeSightController.text,
-      'bloodGroup': _bloodGroupController.text,
-      'bmi': _bmiController.text,
-      'childBirthRegNumber': _childBirthRegNumberController.text,
-      'weight': _weightController.text,
-      'user_id': _motherIdController.text,
-      'midWifeId': _midWifeIdController.text,
-    };
-
-    final response = await http.post(
-      Uri.parse('http://51.20.246.58/children'), // Replace with your actual endpoint
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(childData),
-    );
-
-    if (response.statusCode == 201) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Child registered successfully!')),
-      );
-      final formattedData = formatChildData(childData);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => QrCodePage(
-              qrData: formattedData, // Pass the formatted data to generate QR code
-            ),
-          ),
-        );
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to register child.')),
-      );
-    }
-  }
-}
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: SizedBox(
-            width: double.maxFinite,
-            child: Column(
-              children: [
-                _buildRegisterSelection(context),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 29,
-                    vertical: 50,
+        body: Form(
+          key: _formKey,
+          child: PageView(
+            controller: _pageController,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              ChildRegisterFirstPage(
+                nameController: _nameController,
+                dateOfBirthController: _dateOfBirthController,
+              ),
+              ChildRegisterSecondPage(
+                hearingController: _hearingController,
+                heightController: _heightController,
+                birthWeightController: _birthWeightController,
+                eyeSightController: _eyeSightController,
+                bloodGroupController: _bloodGroupController,
+                bmiController: _bmiController,
+              ),
+              ChildRegisterThirdPage(
+                childBirthRegNumberController: _childBirthRegNumberController,
+                weightController: _weightController,
+                motherIdController: _motherIdController,
+                midWifeIdController: _midWifeIdController,
+              ),
+              ChildRegisterFourthPage(
+                submitForm: _submitForm,
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: _prevPage,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  decoration: AppDecoration.gradientPurpleToPurple,
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildTextField(_nameController, 'Name', 'Enter child\'s name'),
-                        _buildTextField(_dateOfBirthController, 'Date of Birth', 'Enter date of birth'),
-                        _buildTextField(_hearingController, 'Hearing', 'Enter hearing details', required: false),
-                        _buildTextField(_heightController, 'Height', 'Enter height', keyboardType: TextInputType.number, required: false),
-                        _buildTextField(_birthWeightController, 'Birth Weight', 'Enter birth weight', keyboardType: TextInputType.number, required: false),
-                        _buildTextField(_eyeSightController, 'Eye Sight', 'Enter eye sight details', required: false),
-                        _buildTextField(_bloodGroupController, 'Blood Group', 'Enter blood group', required: false),
-                        _buildTextField(_bmiController, 'BMI', 'Enter BMI', keyboardType: TextInputType.number, required: false),
-                        _buildTextField(_childBirthRegNumberController, 'Child Birth Registration Number', 'Enter registration number', required: false),
-                        _buildTextField(_weightController, 'Weight', 'Enter weight', keyboardType: TextInputType.number, required: false),
-                        _buildTextField(_motherIdController, 'user_id ID', 'Enter mother\'s ID'),
-                        _buildTextField(_midWifeIdController, 'Mid Wife ID', 'Enter midwife\'s ID'),
-                        const SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: _submitForm,
-                            child: const Text('Register Child'),
-                          ),
-                        ),
-                      ],
-                    ),
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                ),
+                child: Text(
+                  'Back',
+                  style: TextStyle(
+                    fontSize: 18,
                   ),
                 ),
-              ],
-            ),
+              ),
+              ElevatedButton(
+                onPressed: _nextPage,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                ),
+                child: Text(
+                  'Next',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildRegisterSelection(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        vertical: 34.5,
-        horizontal: 40.0,
-      ),
-      color: const Color(0xFFDF32B9),
-      child: Column(
-        children: [
-          const SizedBox(height: 31),
-          const Text(
-            'Child Register',
-            style: TextStyle(
-              color: Color(0xFFFFFFFF),
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTextField(TextEditingController controller, String label, String hint, {bool required = true, TextInputType keyboardType = TextInputType.text}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          hintText: hint,
-          border: OutlineInputBorder(),
-        ),
-        keyboardType: keyboardType,
-        validator: (value) {
-          if (required && (value == null || value.isEmpty)) {
-            return 'Please enter $label';
-          }
-          return null;
-        },
       ),
     );
   }

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 //import 'package:babychart/theme/app_decorations.dart'
 import 'package:babychart/enter_Batch_No.dart';
 
@@ -103,12 +106,12 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
             SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () {
-                // Handle Scan QR Code button press
+                controller
+                    ?.resumeCamera(); // Resume the camera if it was paused
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pink, // Button background color
-                foregroundColor:
-                    Colors.white, // Button text color // Button text color
+                foregroundColor: Colors.white, // Button text color
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -122,6 +125,17 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
                 ),
               ),
             ),
+            if (scannedData != null) ...[
+              SizedBox(height: 20),
+              Text(
+                'Scanned Data: $scannedData',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
+              ),
+            ],
           ],
         ),
       ),
@@ -134,11 +148,21 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
       setState(() {
         scannedData = scanData.code;
       });
+      print('Scanned data: $scannedData'); // Debug statement
       // Navigate to EnterBatchNo page after scanning the QR code
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => EnterBatchNo(scannedData: scannedData)),
       );
     });
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller?.pauseCamera();
+    }
+    controller?.resumeCamera();
   }
 }
