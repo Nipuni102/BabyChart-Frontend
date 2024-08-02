@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         '/addChildFourthPage': (context) => AddNewChildFourthScreen(),
 
         // '/activity': (context) => ActivitiesScreen(),
-         '/qr': (context) => const QrCodePage(qrData: ''), 
+        '/qr': (context) => const QrCodePage(qrData: ''),
 
       },
     );
