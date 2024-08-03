@@ -33,16 +33,16 @@ class ImmunizationH extends StatelessWidget {
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: const CardWidget(
-                    vaccine: 'John Doe', batchNo: '12345', date: '2024-05-10'),
+                    vaccine: 'Vaccine 01', batchNo: '12345', date: '2024-05-10'),
               ),
             ),
             const SizedBox(height: 10),
             // Add some space between cards
             const CardWidget(
-                vaccine: 'Jane Smith', batchNo: '54321', date: '2024-05-11'),
+                vaccine: 'Vaccine 02', batchNo: '54321', date: '2024-05-11'),
             const SizedBox(height: 10), // Add some space between cards
             const CardWidget(
-                vaccine: 'Alice Johnson', batchNo: '98765', date: '2024-05-12'),
+                vaccine: 'Vaccine 03', batchNo: '98765', date: '2024-05-12'),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:babychart/midSignIn.dart';
+import 'package:babychart/signInPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -47,18 +49,26 @@ class SelectingPage extends StatelessWidget {
             buildProfileOption(
               context,
               'Parent Account',
-              'assets/parent_account.png', // Replace with your image path
+              'assets/parent_new.png', // Replace with your image path
               () {
-                // Handle Parent Account selection
+                 Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignInPage()),
+                      );
               },
             ),
             SizedBox(height: 20),
             buildProfileOption(
               context,
               'Midwife Account',
-              'assets/midwife_account.png', // Replace with your image path
+              'assets/midwife_new.png', // Replace with your image path
               () {
-                // Handle Midwife Account selection
+                 Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MidSignInPage()),
+                      );
               },
             ),
           ],
@@ -89,8 +99,8 @@ class SelectingPage extends StatelessWidget {
             children: [
               Image.asset(
                 imagePath,
-                width: 80,
-                height: 80,
+                width: 100,
+                height: 100,
               ),
               SizedBox(height: 10),
               Text(
