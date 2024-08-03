@@ -5,7 +5,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.pink,
+        backgroundColor: Color(0xFFCC31A1),
         title: Text('BabyChart'),
         centerTitle: true,
         actions: [
@@ -33,8 +33,7 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage(
-                      'assets/images/profile_picture.png'), // Replace with your image path
+                  backgroundImage: AssetImage('assets/piumi.png'),
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -42,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.purple,
+                    color: Color.fromARGB(255, 35, 35, 36),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -55,7 +54,8 @@ class ProfileScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink, // Button background color
+                    backgroundColor:
+                        Color(0xFFCC31A1), // Button background color
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -134,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
             title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.purple,
+              color: Color.fromARGB(255, 35, 35, 36),
             ),
           ),
           Text(value),
@@ -149,7 +149,7 @@ class QRCodeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.pink,
+        backgroundColor: Color(0xFFCC31A1),
         title: Text('My QR Code'),
         centerTitle: true,
       ),

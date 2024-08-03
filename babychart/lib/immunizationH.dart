@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'vaccineDetail.dart';
 
 class ImmunizationH extends StatelessWidget {
   const ImmunizationH({super.key});
@@ -28,21 +29,51 @@ class ImmunizationH extends StatelessWidget {
             const SizedBox(height: 10),
             GestureDetector(
               onTap: () {
-                // Handle onTap event
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => VaccineDetailsScreen()),
+                );
               },
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: const CardWidget(
-                    vaccine: 'John Doe', batchNo: '12345', date: '2024-05-10'),
+                    vaccine: 'Rubella', batchNo: '12345', date: '2024-05-10'),
               ),
             ),
             const SizedBox(height: 10),
             // Add some space between cards
-            const CardWidget(
-                vaccine: 'Jane Smith', batchNo: '54321', date: '2024-05-11'),
-            const SizedBox(height: 10), // Add some space between cards
-            const CardWidget(
-                vaccine: 'Alice Johnson', batchNo: '98765', date: '2024-05-12'),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => VaccineDetailsScreen()),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: const CardWidget(
+                    vaccine: 'Polio', batchNo: '12345', date: '2024-05-10'),
+              ),
+            ),
+            const SizedBox(height: 10),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => VaccineDetailsScreen()),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: const CardWidget(
+                    vaccine: 'Hepatitis B',
+                    batchNo: '12345',
+                    date: '2024-05-10'),
+              ),
+            ),
           ],
         ),
       ),

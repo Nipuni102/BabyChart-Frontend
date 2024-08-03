@@ -12,8 +12,8 @@ import 'package:outline_gradient_button/outline_gradient_button.dart';
 class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key})
       : super(
-    key: key,
-  );
+          key: key,
+        );
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -74,7 +74,7 @@ class SignUpPage extends StatelessWidget {
                                     buttonStyle: ButtonStyle(
                                       backgroundColor: MaterialStateProperty
                                           .all<Color>(Color(
-                                          0xFFDF32B9)), // Change this to your desired color
+                                              0xFFDF32B9)), // Change this to your desired color
                                     ),
                                   )
                                 ],
@@ -94,9 +94,9 @@ class SignUpPage extends StatelessWidget {
                                     vertical: 15,
                                   ),
                                   decoration:
-                                  AppDecoration.outlinePrimary4.copyWith(
+                                      AppDecoration.outlinePrimary4.copyWith(
                                     borderRadius:
-                                    BorderRadiusStyle.roundedBorder16,
+                                        BorderRadiusStyle.roundedBorder16,
                                   ),
                                   child: Image(
                                       image: AssetImage('assets/facebook.png')),
@@ -110,9 +110,9 @@ class SignUpPage extends StatelessWidget {
                                     vertical: 15,
                                   ),
                                   decoration:
-                                  AppDecoration.outlinePrimary4.copyWith(
+                                      AppDecoration.outlinePrimary4.copyWith(
                                     borderRadius:
-                                    BorderRadiusStyle.roundedBorder16,
+                                        BorderRadiusStyle.roundedBorder16,
                                   ),
                                   child: Image(
                                       image: AssetImage('assets/google.png')),
@@ -280,6 +280,7 @@ class SignUpPage extends StatelessWidget {
       ),
     );
   }
+
   /// Section Widget
 
   Widget _buildLoginOptionsRow(BuildContext context) {
@@ -353,7 +354,7 @@ class SignUpPage extends StatelessWidget {
   }
 
   /// Navigates to the androidLarge19Screen when the action is triggered.
-   void onTapSignUp(BuildContext context) async {
+  void onTapSignUp(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       try {
         final response = await authService.register(
