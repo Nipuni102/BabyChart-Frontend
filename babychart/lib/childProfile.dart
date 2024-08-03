@@ -154,9 +154,10 @@ class QRCodeScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          'QR Code Screen',
-          style: TextStyle(fontSize: 24),
+        child: Image.asset(
+          'assets/qr.jpeg', // Replace with your image asset path
+          width: 280, // Adjust size as needed
+          height: 280, // Adjust size as needed
         ),
       ),
     );
