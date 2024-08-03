@@ -44,10 +44,17 @@ class MyQRCodeScreen extends StatelessWidget {
                   border: Border.all(color: Colors.pink, width: 2),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: QrImage(
-                  data: 'https://example.com', // Replace with your QR code data
-                  version: QrVersions.auto,
-                  size: 200.0,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned(
+                      child: Image.asset(
+                        'assets/qr.jpeg', // Replace with your image asset path
+                        width: 80, // Adjust size as needed
+                        height: 80, // Adjust size as needed
+                      ),
+                    ),
+                  ],              
                 ),
               ),
             ],

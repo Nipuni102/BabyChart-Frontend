@@ -38,11 +38,14 @@ class ImmunizationH extends StatelessWidget {
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: const CardWidget(
+
                     vaccine: 'Rubella', batchNo: '12345', date: '2024-05-10'),
+
               ),
             ),
             const SizedBox(height: 10),
             // Add some space between cards
+
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -74,6 +77,7 @@ class ImmunizationH extends StatelessWidget {
                     date: '2024-05-10'),
               ),
             ),
+
           ],
         ),
       ),

@@ -30,8 +30,8 @@ class SelectChild extends StatelessWidget {
                     children: [
                       SizedBox(height: 10),
                       _buildProfileSection(context),
-                      SizedBox(height: 50),
-                      _buildAddChildSection(context)
+                      // SizedBox(height: 50),
+                      // _buildAddChildSection(context)
                     ],
                   ),
                 )
