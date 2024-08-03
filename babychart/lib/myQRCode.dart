@@ -6,7 +6,7 @@ class MyQRCodeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.pink,
+        backgroundColor: Color(0xFFCC31A1),
         title: Text('BabyChart'),
         centerTitle: true,
         leading: IconButton(
