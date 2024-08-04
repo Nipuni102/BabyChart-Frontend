@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 
-class EnterBatchNo extends StatelessWidget {
+class EnterBatchNo extends StatefulWidget {
   final String? scannedData;
 
   EnterBatchNo({Key? key, required this.scannedData}) : super(key: key);
+
+  @override
+  _EnterBatchNoState createState() => _EnterBatchNoState();
+}
+
+class _EnterBatchNoState extends State<EnterBatchNo> {
+  final TextEditingController _batchNoController = TextEditingController();
+
+  void _showSuccessMessage(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Data entered successfully!'),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +36,7 @@ class EnterBatchNo extends StatelessWidget {
           },
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
@@ -55,7 +71,7 @@ class EnterBatchNo extends StatelessWidget {
             // Dropdown for Vaccine Selection
             DropdownButtonFormField<String>(
               value: 'Select Vaccine',
-              items: ['Select Vaccine', 'Vaccine 1', 'Vaccine 2'].map((String value) {
+              items: ['Select Vaccine', 'Triple', 'MMR', 'Rubella'].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -73,7 +89,7 @@ class EnterBatchNo extends StatelessWidget {
             ),
             SizedBox(height: 20),
             // Display the scanned QR code data
-            if (scannedData != null)
+            if (widget.scannedData != null)
               Card(
                 color: Colors.pink[100],
                 shape: RoundedRectangleBorder(
@@ -89,7 +105,7 @@ class EnterBatchNo extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    scannedData!,
+                    widget.scannedData!,
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -99,6 +115,7 @@ class EnterBatchNo extends StatelessWidget {
             SizedBox(height: 20),
             // Batch No TextField
             TextField(
+              controller: _batchNoController,
               decoration: InputDecoration(
                 labelText: 'Batch No',
                 border: OutlineInputBorder(
@@ -111,6 +128,7 @@ class EnterBatchNo extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Handle Enter Data button press
+                _showSuccessMessage(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pink,
@@ -131,5 +149,11 @@ class EnterBatchNo extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _batchNoController.dispose();
+    super.dispose();
   }
 }

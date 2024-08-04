@@ -69,7 +69,7 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
             // Dropdown for Vaccine Selection
             DropdownButtonFormField<String>(
               value: 'Select Vaccine',
-              items: ['Select Vaccine', 'Vaccine 1', 'Vaccine 2'].map((String value) {
+              items: ['Select Vaccine', 'Triple', 'MMR' ,'Rubella'].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
