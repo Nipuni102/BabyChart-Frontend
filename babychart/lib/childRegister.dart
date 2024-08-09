@@ -1,12 +1,18 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:babychart/qrCodePage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
-import 'package:intl/intl.dart';
 import 'child_register_first_page.dart';
 import 'child_register_second_page.dart';
 import 'child_register_third_page.dart';
 import 'child_register_fourth_page.dart';
+import 'package:qr_flutter/qr_flutter.dart'; // Add this package for QR code generation
+import 'dart:ui' as ui;
+import 'package:http_parser/http_parser.dart';
 
 class ChildRegister extends StatefulWidget {
   @override
@@ -67,54 +73,93 @@ class _ChildRegisterState extends State<ChildRegister> {
     }
   }
 
-  void _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      final childData = {
-        'name': _nameController.text,
-        'dateOfBirth': _dateOfBirthController.text,
-        'hearing': _hearingController.text,
-        'height': _heightController.text,
-        'birthWeight': _birthWeightController.text,
-        'eyeSight': _eyeSightController.text,
-        'bloodGroup': _bloodGroupController.text,
-        'bmi': _bmiController.text,
-        'childBirthRegNumber': _childBirthRegNumberController.text,
-        'weight': _weightController.text,
-        'user_id': _motherIdController.text,
-        'midWifeId': _midWifeIdController.text,
-      };
+ void _submitForm() async {
+  if (_formKey.currentState!.validate()) {
+    final childData = {
+      'name': _nameController.text,
+      'dateOfBirth': _dateOfBirthController.text,
+      'hearing': _hearingController.text,
+      'height': _heightController.text,
+      'birthWeight': _birthWeightController.text,
+      'eyeSight': _eyeSightController.text,
+      'bloodGroup': _bloodGroupController.text,
+      'bmi': _bmiController.text,
+      'childBirthRegNumber': _childBirthRegNumberController.text,
+      'weight': _weightController.text,
+      'user_id': _motherIdController.text,
+      'midWifeId': _midWifeIdController.text,
+    };
 
-      final response = await http.post(
-        Uri.parse('http://51.20.246.58/children'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(childData),
+    // Generate QR code image data
+    final qrCodeImage = await generateQRCodeImage(childData);
+    final qrCodeFile = await saveQRCodeImage(qrCodeImage);
+
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('http://192.168.8.103:8080/children'),
+    );
+
+    request.fields.addAll(childData);
+
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'qr_code',
+        qrCodeFile.path,
+        contentType: MediaType('image', 'png'),
+      ),
+    );
+
+    final response = await request.send();
+
+    if (response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Child registered successfully!')),
       );
 
-      if (response.statusCode == 201) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Child registered successfully!')),
-        );
-
-        final formattedData = formatChildData(childData);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => QrCodePage(
-              qrData: formattedData,
-            ),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => QrCodePage(
+            qrData: qrCodeFile.path,
           ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to register child.')),
-        );
-      }
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to register child.')),
+      );
     }
   }
+}
 
+
+Future<Uint8List> generateQRCodeImage(Map<String, String> data) async {
+  final qrData = formatChildData(data);
+
+  final qrPainter = QrPainter(
+    data: qrData,
+    version: QrVersions.auto,
+    gapless: true,
+  );
+
+  final size = Size(200.0, 200.0); // Adjust size as needed
+  final pictureRecorder = ui.PictureRecorder();
+  final canvas = Canvas(pictureRecorder, Rect.fromPoints(Offset(0, 0), size.bottomRight(Offset.zero)));
+  qrPainter.paint(canvas, size);
+
+  final picture = pictureRecorder.endRecording();
+  final img = await picture.toImage(size.width.toInt(), size.height.toInt());
+  final byteData = await img.toByteData(format: ui.ImageByteFormat.png);
+  return byteData!.buffer.asUint8List();
+}
+
+  Future<File> saveQRCodeImage(Uint8List imageData) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/qrcode.png';
+  final file = File(filePath);
+  await file.writeAsBytes(imageData);
+  return file;
+}
   String formatChildData(Map<String, String> data) {
     return '''
     Name: ${data['name']}
@@ -130,6 +175,14 @@ class _ChildRegisterState extends State<ChildRegister> {
     Mother ID: ${data['user_id']}
     Mid Wife ID: ${data['midWifeId']}
     ''';
+  }
+
+  String generateQRCodeData(String formattedData) {
+    // Generate a QR code from the formatted data
+    // Here, you could return a string representation of the QR code
+    // For simplicity, we're just returning the formatted data directly
+    // In a real application, you might use a library to generate the actual QR code image
+    return formattedData;
   }
 
   @override

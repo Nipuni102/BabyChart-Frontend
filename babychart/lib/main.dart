@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         '/selectingPage': (context) => SelectingPage(),
         '/signIn': (context) => SignInPage(),
         '/signUp': (context) => SignUpPage(),
-        '/selectChild': (context) => SelectChild(),
+        // '/selectChild': (context) => SelectChild(token: 'das '),
         '/midSignIn': (context) => MidSignInPage(),
         '/midSignUp': (context) => MidSignUpPage(),
         '/kidsSelecting': (context) => KidsSelecting(),
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         '/addChildFourthPage': (context) => AddNewChildFourthScreen(),
 
         // '/activity': (context) => ActivitiesScreen(),
-        '/qr': (context) => const QrCodePage(qrData: ''),
+        // '/qr': (context) => const QrCodePage(qrData: ''),
 
       },
     );

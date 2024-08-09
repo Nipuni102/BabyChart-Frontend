@@ -2,12 +2,29 @@ import 'package:babychart/theme/app_decorations.dart';
 import 'package:babychart/theme/custom_text_style.dart';
 import 'package:babychart/theme/theme_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SelectChild extends StatelessWidget {
-  const SelectChild({Key? key})
-      : super(
-          key: key,
-        );
+  final String
+      token; // Pass the token from the previous screen or authentication
+
+  SelectChild({required this.token});
+
+  Future<Map<String, dynamic>> fetchUserDetails() async {
+    final response = await http.get(
+      Uri.parse('http://192.168.8.103:8080/user'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    print(token);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    } else {
+      throw Exception('Failed to load user details');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +46,27 @@ class SelectChild extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 10),
-                      _buildProfileSection(context),
-                      // SizedBox(height: 50),
-                      // _buildAddChildSection(context)
+                      FutureBuilder<Map<String, dynamic>>(
+                        future: fetchUserDetails(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else if (snapshot.hasData) {
+                            var user = snapshot.data!;
+                            return _buildProfileSection(context, user);
+                          } else {
+                            return Text('No data available');
+                          }
+                        },
+                      ),
+                      SizedBox(height: 50),
+                      _buildAddChildSection(context)
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -43,63 +75,36 @@ class SelectChild extends StatelessWidget {
     );
   }
 
-  Widget _buildChildSelection(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(
-        vertical: 34.5,
-        horizontal: 40.0,
-      ),
-      color: Color(0xFFDF32B9),
-      child: Column(
-        children: [
-          SizedBox(height: 31),
-          Text(
-            "Select the child",
-            style: TextStyle(
-              color: Color(0xFFFFFFFF),
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  /// Section Widget
-
-  Widget _buildProfileSection(BuildContext context) {
+  Widget _buildProfileSection(BuildContext context, Map<String, dynamic> user) {
     return GestureDetector(
       onTap: () {
         onTapProfileSection(context);
       },
       child: Container(
-        margin: EdgeInsets.only(left: 1),
-        padding: EdgeInsets.symmetric(
-          horizontal: 60,
-          vertical: 15,
-        ),
-        decoration: AppDecoration.outlinePrimaryContainer2.copyWith(
-          borderRadius: BorderRadiusStyle.roundedBorder21,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(image: AssetImage('assets/piumi.png')),
-            SizedBox(height: 14),
-            Text(
-              "Piumi Wathsala",
-              style: CustomTextStyles.headlineSmallInterPrimary,
+          margin: EdgeInsets.only(left: 1),
+          padding: EdgeInsets.symmetric(
+            horizontal: 60,
+            vertical: 15,
+          ),
+          decoration: AppDecoration.outlinePrimaryContainer2.copyWith(
+            borderRadius: BorderRadiusStyle.roundedBorder21,
+          ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(image: AssetImage('assets/piumi.png')),
+                SizedBox(height: 17),
+                Text(
+                  user['name'] ?? 'No Name',
+                  style: CustomTextStyles.headlineSmallInterPrimary,
+                ),
+                SizedBox(height: 10),
+              ],
             ),
-            SizedBox(height: 10)
-          ],
-        ),
-      ),
+          )),
     );
   }
-
-  /// Section Widget
 
   Widget _buildAddChildSection(BuildContext context) {
     return GestureDetector(
@@ -130,14 +135,35 @@ class SelectChild extends StatelessWidget {
     );
   }
 
-  /// Navigates to the androidLarge1Screen when the action is triggered.
+  Widget _buildChildSelection(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(
+        vertical: 34.5,
+        horizontal: 40.0,
+      ),
+      color: Color(0xFFDF32B9),
+      child: Column(
+        children: [
+          SizedBox(height: 31),
+          Text(
+            "Select the child",
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
-  onTapProfileSection(BuildContext context) {
+  void onTapProfileSection(BuildContext context) {
     Navigator.pushNamed(context, '/nav');
   }
 
-  onTapAddChildSection(BuildContext context) {
+  void onTapAddChildSection(BuildContext context) {
     Navigator.pushNamed(context, '/childRegister');
   }
-
 }
