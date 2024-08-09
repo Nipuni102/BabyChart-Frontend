@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 
-class EnterBatchNo extends StatelessWidget {
-
+class EnterBatchNo extends StatefulWidget {
   final String? scannedData;
 
   EnterBatchNo({Key? key, required this.scannedData}) : super(key: key);
-  
+
+  @override
+  _EnterBatchNoState createState() => _EnterBatchNoState();
+}
+
+class _EnterBatchNoState extends State<EnterBatchNo> {
+  final TextEditingController _batchNoController = TextEditingController();
+
+  void _showSuccessMessage(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Data entered successfully!'),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,19 +32,20 @@ class EnterBatchNo extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             // Handle back button press
+            Navigator.pop(context);
           },
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
+            // Profile Information
             Row(
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundImage: AssetImage(
-                      'assets/images/profile_picture.png'), // Replace with your image path
+                  backgroundImage: AssetImage('assets/images/profile_picture.png'), // Replace with your image path
                 ),
                 SizedBox(width: 10),
                 Text(
@@ -42,6 +58,7 @@ class EnterBatchNo extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
+            // Enter Vaccination Title
             Text(
               'Enter Vaccination',
               style: TextStyle(
@@ -51,10 +68,10 @@ class EnterBatchNo extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
+            // Dropdown for Vaccine Selection
             DropdownButtonFormField<String>(
               value: 'Select Vaccine',
-              items: ['Select Vaccine', 'Vaccine 1', 'Vaccine 2']
-                  .map((String value) {
+              items: ['Select Vaccine', 'Triple', 'MMR', 'Rubella'].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -71,35 +88,34 @@ class EnterBatchNo extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Card(
-              color: Colors.pink[100],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListTile(
-                contentPadding: EdgeInsets.all(20),
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage(
-                      'assets/images/profile_picture.png'), // Replace with your image path
+            // Display the scanned QR code data
+            if (widget.scannedData != null)
+              Card(
+                color: Colors.pink[100],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                title: Text(
-                  'Piumi Wathsala',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(20),
+                  title: Text(
+                    'Scanned Data',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  '3 Months',
-                  style: TextStyle(
-                    color: Colors.white,
+                  subtitle: Text(
+                    widget.scannedData!,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
             SizedBox(height: 20),
+            // Batch No TextField
             TextField(
+              controller: _batchNoController,
               decoration: InputDecoration(
                 labelText: 'Batch No',
                 border: OutlineInputBorder(
@@ -108,13 +124,15 @@ class EnterBatchNo extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
+            // Enter Data Button
             ElevatedButton(
               onPressed: () {
                 // Handle Enter Data button press
+                _showSuccessMessage(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink, // Button background color
-                foregroundColor: Colors.white, // Button text color
+                backgroundColor: Colors.pink,
+                foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -131,5 +149,11 @@ class EnterBatchNo extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _batchNoController.dispose();
+    super.dispose();
   }
 }

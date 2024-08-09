@@ -1,14 +1,15 @@
 import 'dart:io';
+import 'package:babychart/enter_w&h.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:babychart/enter_Batch_No.dart';
 
-class EnterVaccination extends StatefulWidget {
+class EnterChartData extends StatefulWidget {
   @override
-  _EnterVaccinationScreenState createState() => _EnterVaccinationScreenState();
+  _EnterChartDataScreenState createState() => _EnterChartDataScreenState();
 }
 
-class _EnterVaccinationScreenState extends State<EnterVaccination> {
+class _EnterChartDataScreenState extends State<EnterChartData> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
   String? scannedData;
@@ -58,31 +59,11 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
             SizedBox(height: 20),
             // Enter Vaccination Title
             Text(
-              'Enter Vaccination',
+              'Enter chart Data',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.purple,
-              ),
-            ),
-            SizedBox(height: 20),
-            // Dropdown for Vaccine Selection
-            DropdownButtonFormField<String>(
-              value: 'Select Vaccine',
-              items: ['Select Vaccine', 'Triple', 'MMR' ,'Rubella'].map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                // Handle vaccine selection
-              },
-              decoration: InputDecoration(
-                labelText: 'Vaccination',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
               ),
             ),
             SizedBox(height: 20),
@@ -152,7 +133,7 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
       // Navigate to EnterBatchNo page after scanning the QR code
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => EnterBatchNo(scannedData: scannedData)),
+        MaterialPageRoute(builder: (context) => EnterWH(scannedData: scannedData)),
       );
     });
   }

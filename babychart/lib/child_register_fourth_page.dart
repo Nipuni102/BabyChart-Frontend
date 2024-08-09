@@ -14,17 +14,26 @@ class ChildRegisterFourthPage extends StatelessWidget {
           centerTitle: true,
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: submitForm,
-                child: Text('Submit'),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 170),
+            Center(
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: submitForm,
+                  child: Text('Submit'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.pink,
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                  ),
+                ),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),);
   }
 }

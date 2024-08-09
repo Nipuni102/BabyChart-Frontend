@@ -1,4 +1,5 @@
 import 'package:babychart/auth/auth_service.dart';
+import 'package:babychart/selectChild.dart';
 import 'package:babychart/signUpPage.dart';
 import 'package:babychart/theme/app_decorations.dart';
 import 'package:babychart/theme/custom_text_style.dart';
@@ -96,8 +97,7 @@ class SignInPage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          SignUpPage()),
+                                      builder: (context) => SignUpPage()),
                                 );
                               },
                               child: Text(
@@ -356,8 +356,15 @@ class SignInPage extends StatelessWidget {
           userNameController.text,
           passwordController.text,
         );
+         final token = response['data']['token'] ?? '';
+         print(token);
         //Navigator.pushNamed(context, '/nav');
-        Navigator.pushNamed(context, '/selectChild');
+       Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SelectChild(token: token),
+        ),
+      );
         print('Login Successful: ${response['message']}');
       } catch (e) {
         // Handle error (e.g., show error message)
