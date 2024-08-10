@@ -5,22 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class SelectChild extends StatelessWidget {
-  final String
-      token; // Pass the token from the previous screen or authentication
+class SelectChild extends StatefulWidget {
+  final String token; // Pass the token from the previous screen or authentication
 
   SelectChild({required this.token});
 
+  @override
+  _SelectChildState createState() => _SelectChildState();
+}
+
+class _SelectChildState extends State<SelectChild> {
   Future<Map<String, dynamic>> fetchUserDetails() async {
     final response = await http.get(
-      Uri.parse('http://192.168.8.103:8080/user'),
+      Uri.parse('http://51.20.246.58/user'),
       headers: {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${widget.token}',
       },
     );
-    print(token);
     if (response.statusCode == 200) {
-      return jsonDecode(response.body)['data'];
+      return json.decode(response.body);
     } else {
       throw Exception('Failed to load user details');
     }
@@ -49,8 +52,7 @@ class SelectChild extends StatelessWidget {
                       FutureBuilder<Map<String, dynamic>>(
                         future: fetchUserDetails(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
                             return CircularProgressIndicator();
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
@@ -63,7 +65,7 @@ class SelectChild extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: 50),
-                      _buildAddChildSection(context)
+                      // _buildAddChildSection(context),
                     ],
                   ),
                 ),
@@ -76,33 +78,42 @@ class SelectChild extends StatelessWidget {
   }
 
   Widget _buildProfileSection(BuildContext context, Map<String, dynamic> user) {
+    List<dynamic> children = user['data']['children'] ?? [];
+
+    return Column(
+      children: children.map((child) => _buildChildCard(context, child)).toList(),
+    );
+  }
+
+  Widget _buildChildCard(BuildContext context, Map<String, dynamic> child) {
     return GestureDetector(
       onTap: () {
-        onTapProfileSection(context);
+        onTapProfileSection(context, child);
       },
       child: Container(
-          margin: EdgeInsets.only(left: 1),
-          padding: EdgeInsets.symmetric(
-            horizontal: 60,
-            vertical: 15,
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 15,
+        ),
+        decoration: AppDecoration.outlinePrimaryContainer2.copyWith(
+          borderRadius: BorderRadiusStyle.roundedBorder21,
+        ),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(image: AssetImage('assets/piumi.png')),
+              SizedBox(height: 17),
+              Text(
+                child['name'] ?? 'No Name',
+                style: CustomTextStyles.headlineSmallInterPrimary,
+              ),
+              SizedBox(height: 10),
+            ],
           ),
-          decoration: AppDecoration.outlinePrimaryContainer2.copyWith(
-            borderRadius: BorderRadiusStyle.roundedBorder21,
-          ),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image(image: AssetImage('assets/piumi.png')),
-                SizedBox(height: 17),
-                Text(
-                  user['name'] ?? 'No Name',
-                  style: CustomTextStyles.headlineSmallInterPrimary,
-                ),
-                SizedBox(height: 10),
-              ],
-            ),
-          )),
+        ),
+      ),
     );
   }
 
@@ -159,8 +170,15 @@ class SelectChild extends StatelessWidget {
     );
   }
 
-  void onTapProfileSection(BuildContext context) {
-    Navigator.pushNamed(context, '/nav');
+  void onTapProfileSection(BuildContext context, Map<String, dynamic> child) {
+    Navigator.pushNamed(
+      context,
+      '/nav',
+      arguments: {
+      'token': widget.token,
+      'child': child,
+    }, // Pass child data as arguments
+    );
   }
 
   void onTapAddChildSection(BuildContext context) {

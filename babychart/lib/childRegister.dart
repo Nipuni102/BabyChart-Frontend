@@ -75,62 +75,70 @@ class _ChildRegisterState extends State<ChildRegister> {
 
  void _submitForm() async {
   if (_formKey.currentState!.validate()) {
-    final childData = {
-      'name': _nameController.text,
-      'dateOfBirth': _dateOfBirthController.text,
-      'hearing': _hearingController.text,
-      'height': _heightController.text,
-      'birthWeight': _birthWeightController.text,
-      'eyeSight': _eyeSightController.text,
-      'bloodGroup': _bloodGroupController.text,
-      'bmi': _bmiController.text,
-      'childBirthRegNumber': _childBirthRegNumberController.text,
-      'weight': _weightController.text,
-      'user_id': _motherIdController.text,
-      'midWifeId': _midWifeIdController.text,
-    };
+    try {
+      final childData = {
+        'name': _nameController.text,
+        'dateOfBirth': _dateOfBirthController.text,
+        'hearing': _hearingController.text,
+        'height': _heightController.text,
+        'birthWeight': _birthWeightController.text,
+        'eyeSight': _eyeSightController.text,
+        'bloodGroup': _bloodGroupController.text,
+        'bmi': _bmiController.text,
+        'childBirthRegNumber': _childBirthRegNumberController.text,
+        'weight': _weightController.text,
+        'user_id': _motherIdController.text,
+        'midWifeId': _midWifeIdController.text,
+      };
 
-    // Generate QR code image data
-    final qrCodeImage = await generateQRCodeImage(childData);
-    final qrCodeFile = await saveQRCodeImage(qrCodeImage);
+      // Generate QR code image data
+      final qrCodeImage = await generateQRCodeImage(childData);
+      final qrCodeFile = await saveQRCodeImage(qrCodeImage);
 
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse('http://192.168.8.103:8080/children'),
-    );
-
-    request.fields.addAll(childData);
-
-    request.files.add(
-      await http.MultipartFile.fromPath(
-        'qr_code',
-        qrCodeFile.path,
-        contentType: MediaType('image', 'png'),
-      ),
-    );
-
-    final response = await request.send();
-
-    if (response.statusCode == 201) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Child registered successfully!')),
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('http://51.20.246.58/children'),
       );
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => QrCodePage(
-            qrData: qrCodeFile.path,
-          ),
+      request.fields.addAll(childData);
+
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'qr_code',
+          qrCodeFile.path,
+          contentType: MediaType('image', 'png'),
         ),
       );
-    } else {
+
+      final response = await request.send();
+
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Child registered successfully!')),
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => QrCodePage(
+              qrData: qrCodeFile.path,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to register child.')),
+        );
+      }
+    } catch (error) {
+      // Handle specific error types if needed
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to register child.')),
+        SnackBar(content: Text('An error occurred: $error')),
       );
     }
   }
 }
+
 
 
 Future<Uint8List> generateQRCodeImage(Map<String, String> data) async {

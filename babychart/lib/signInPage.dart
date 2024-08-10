@@ -1,3 +1,4 @@
+import 'package:babychart/API/token.dart';
 import 'package:babychart/auth/auth_service.dart';
 import 'package:babychart/selectChild.dart';
 import 'package:babychart/signUpPage.dart';
@@ -358,6 +359,8 @@ class SignInPage extends StatelessWidget {
         );
          final token = response['data']['token'] ?? '';
          print(token);
+
+          AuthToken().token = token;
         //Navigator.pushNamed(context, '/nav');
        Navigator.push(
         context,
