@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert'; // For jsonEncode
 
 class EnterBatchNo extends StatefulWidget {
   final String? scannedData;
@@ -11,12 +13,66 @@ class EnterBatchNo extends StatefulWidget {
 
 class _EnterBatchNoState extends State<EnterBatchNo> {
   final TextEditingController _batchNoController = TextEditingController();
+  String? _selectedVaccine;
 
   void _showSuccessMessage(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Data entered successfully!'),
         backgroundColor: Colors.green,
+      ),
+    );
+  }
+
+  Future<void> _submitData() async {
+    final batchNo = _batchNoController.text;
+    final vaccine = _selectedVaccine;
+    final scannedData = widget.scannedData;
+
+    if (batchNo.isEmpty || vaccine == null) {
+      _showErrorMessage(context, 'Please fill all fields.');
+      return;
+    }
+
+    final data = {
+      'name': vaccine,
+      'vaccinated_date': DateTime.now().toIso8601String(),
+      'batch_no': batchNo,
+      'adverse_effects': 'None',
+      'age_to_be_vaccinated':
+          DateTime.now().add(Duration(days: 30)).toIso8601String(),
+      'child_id': 20
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://51.20.246.58/vaccines'),
+        headers: {
+          'Content-Type': 'application/json',
+          // Add other headers if needed
+        },
+        body: jsonEncode(data),
+      );
+
+      print('Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      if (response.statusCode == 201) {
+        _showSuccessMessage(context);
+      } else {
+        _showErrorMessage(context, 'Failed to submit data: ${response.body}');
+      }
+    } catch (error) {
+      print('Error: $error');
+      _showErrorMessage(context, 'An error occurred: $error');
+    }
+  }
+
+  void _showErrorMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
       ),
     );
   }
@@ -43,10 +99,10 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
             // Profile Information
             Row(
               children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage('assets/images/profile_picture.png'), // Replace with your image path
-                ),
+                // CircleAvatar(
+                //   radius: 30,
+                //   backgroundImage: AssetImage('assets/images/profile_picture.png'), // Replace with your image path
+                // ),
                 SizedBox(width: 10),
                 Text(
                   'G.H.K. Wijerathna',
@@ -70,15 +126,17 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
             SizedBox(height: 20),
             // Dropdown for Vaccine Selection
             DropdownButtonFormField<String>(
-              value: 'Select Vaccine',
-              items: ['Select Vaccine', 'Triple', 'MMR', 'Rubella'].map((String value) {
+              value: _selectedVaccine,
+              items: ['Triple', 'MMR', 'Rubella'].map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
                 );
               }).toList(),
               onChanged: (newValue) {
-                // Handle vaccine selection
+                setState(() {
+                  _selectedVaccine = newValue;
+                });
               },
               decoration: InputDecoration(
                 labelText: 'Vaccination',
@@ -126,10 +184,7 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
             SizedBox(height: 20),
             // Enter Data Button
             ElevatedButton(
-              onPressed: () {
-                // Handle Enter Data button press
-                _showSuccessMessage(context);
-              },
+              onPressed: _submitData,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pink,
                 foregroundColor: Colors.white,

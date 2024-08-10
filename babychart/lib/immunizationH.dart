@@ -1,85 +1,83 @@
+import 'package:babychart/API/token.dart';
+import 'package:babychart/API/vaccine_details.dart';
+import 'package:babychart/vaccineDetail.dart';
 import 'package:flutter/material.dart';
-import 'vaccineDetail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ImmunizationH extends StatelessWidget {
+class ImmunizationH extends StatefulWidget {
   const ImmunizationH({super.key});
+
+  @override
+  _ImmunizationHState createState() => _ImmunizationHState();
+}
+
+class _ImmunizationHState extends State<ImmunizationH> {
+  late Future<List<Vaccine>> futureVaccines;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeVaccines();
+  }
+
+  Future<void> _initializeVaccines() async {
+    try {
+      String? token = AuthToken().token;
+      if (token == null || token.isEmpty) {
+        throw Exception('No token found');
+      }
+      futureVaccines = ApiService('http://51.20.246.58', token).fetchVaccines();
+      setState(() {});
+    } catch (e) {
+      print('Failed to initialize vaccines: $e');
+      futureVaccines = Future.value(
+          []); // Provide an empty list to avoid late initialization issues
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: const Text('Immunization'),
-      ),*/
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  Text('Vaccine',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text('Batch No',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text('Date', style: TextStyle(fontWeight: FontWeight.bold)),
-                ],
+      body: FutureBuilder<List<Vaccine>>(
+        future: futureVaccines,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No vaccines found'));
+          } else {
+            final vaccines = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
+                children: vaccines.map((vaccine) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VaccineDetailsScreen(),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: CardWidget(
+                          vaccine: vaccine.name,
+                          batchNo: vaccine.batchNo,
+                          date: vaccine.vaccinatedDate,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => VaccineDetailsScreen()),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: const CardWidget(
-
-                    vaccine: 'Rubella', batchNo: '12345', date: '2024-05-10'),
-
-              ),
-            ),
-            const SizedBox(height: 10),
-            // Add some space between cards
-
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => VaccineDetailsScreen()),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: const CardWidget(
-                    vaccine: 'Polio', batchNo: '12345', date: '2024-05-10'),
-              ),
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => VaccineDetailsScreen()),
-                );
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: const CardWidget(
-                    vaccine: 'Hepatitis B',
-                    batchNo: '12345',
-                    date: '2024-05-10'),
-              ),
-            ),
-
-          ],
-        ),
+            );
+          }
+        },
       ),
     );
   }
@@ -115,16 +113,13 @@ class CardWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        //title: Text(vaccine),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(vaccine),
-            //Text(batchNo),
             Expanded(
-              child:
-                  Center(child: Text(batchNo)), // Center align the batch number
+              child: Center(child: Text(batchNo)),
             ),
             Text(date),
           ],
