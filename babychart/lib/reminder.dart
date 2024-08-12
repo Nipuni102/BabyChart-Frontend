@@ -1,70 +1,129 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-class ReminderPage extends StatefulWidget {
+import 'package:flutter/material.dart';
+
+class SendRemindersScreen extends StatefulWidget {
   @override
-  _ReminderPageState createState() => _ReminderPageState();
+  _SendRemindersScreenState createState() => _SendRemindersScreenState();
 }
 
-class _ReminderPageState extends State<ReminderPage> {
-  final _messageController = TextEditingController();
+class _SendRemindersScreenState extends State<SendRemindersScreen> {
+  String selectedAge = 'Select Age';
+  String selectedArea = 'Select Area';
 
-  Future<void> _setReminder() async {
-    final message = _messageController.text;
+  List<String> ages = ['Select Age', '0-1', '1-2', '2-3', '3-4', '4-5'];
+  List<String> areas = ['Select Area', 'Area 1', 'Area 2', 'Area 3', 'Area 4'];
 
-    if (message.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter a reminder message')),
-      );
-      return;
-    }
-
-    final response = await http.post(
-      Uri.parse('https://your-backend-url.com/set-reminder'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer YOUR_TOKEN',
-      },
-      body: jsonEncode({'message': message}),
-    );
-
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Reminder set successfully')),
-      );
-      // Optionally, clear the input field
-      _messageController.clear();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to set reminder')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Set Reminder'),
+        backgroundColor: Colors.pinkAccent,
+        title: Text('BabyChart'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            // Handle back button press
+          },
+        ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: _messageController,
-              decoration: InputDecoration(labelText: 'Reminder Message'),
-              maxLines: 3,
+            UserProfile(),
+            SizedBox(height: 20),
+            Text(
+              'Send Reminders',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _setReminder,
-              child: Text('Set Reminder'),
+            Container(
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Filter based on Age'),
+                  DropdownButton<String>(
+                    value: selectedAge,
+                    isExpanded: true,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedAge = newValue!;
+                      });
+                    },
+                    items: ages.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  SizedBox(height: 20),
+                  Text('Filter based on area'),
+                  DropdownButton<String>(
+                    value: selectedArea,
+                    isExpanded: true,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedArea = newValue!;
+                      });
+                    },
+                    items: areas.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle send reminder button press
+                },
+                child: Text('Send Reminder'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.pink,
+                ),
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class UserProfile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        CircleAvatar(
+          backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+          radius: 25,
+        ),
+        SizedBox(width: 10),
+        Text(
+          'G.H.K. Wijerathna',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
