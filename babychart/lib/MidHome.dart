@@ -1,5 +1,6 @@
 import 'package:babychart/childRegister.dart';
 import 'package:babychart/enter_chart_data.dart';
+import 'package:babychart/reminder.dart';
 import 'package:flutter/material.dart';
 import 'enter_vaccination.dart';
 import 'addChildFirstPage.dart';
@@ -75,7 +76,7 @@ class MidHome extends StatelessWidget {
                     'Enter Chart Data',
                     'assets/enter_chart_data.png', // Replace with your image path
                     () {
-                       Navigator.push(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => EnterChartData()),
@@ -85,9 +86,14 @@ class MidHome extends StatelessWidget {
                   buildCard(
                     context,
                     'Set Reminders',
-                    'assets/set_reminders.png', // Replace with your image path
+                    'assets/set_reminders.png',
                     () {
-                      // Handle Set Reminders button press
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReminderPage(),
+                        ),
+                      );
                     },
                   ),
                 ],

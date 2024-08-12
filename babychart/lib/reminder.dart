@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class SendRemindersScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class _SendRemindersScreenState extends State<SendRemindersScreen> {
 
   List<String> ages = ['Select Age', '0-1', '1-2', '2-3', '3-4', '4-5'];
   List<String> areas = ['Select Area', 'Area 1', 'Area 2', 'Area 3', 'Area 4'];
+
 
   @override
   Widget build(BuildContext context) {

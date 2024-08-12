@@ -1,4 +1,5 @@
 import 'package:babychart/auth/auth_service.dart';
+import 'package:babychart/selectChild.dart';
 import 'package:babychart/theme/app_decorations.dart';
 import 'package:babychart/theme/custom_text_style.dart';
 import 'package:babychart/theme/theme_helper.dart';
@@ -363,8 +364,15 @@ class SignUpPage extends StatelessWidget {
           passwordController.text,
           passwordController.text,
         );
+         final token = response['data']['token'] ?? '';
+         print(token);
 
-        Navigator.pushNamed(context, '/selectChild');
+         Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SelectChild(token: token),
+        ),
+      );
         print('Registration Successful: ${response['message']}');
       } catch (e) {
         // Handle registration error (e.g., show error message)
