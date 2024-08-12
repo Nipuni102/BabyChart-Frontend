@@ -7,7 +7,7 @@ class MyQRCodeScreen extends StatelessWidget {
 
   MyQRCodeScreen({required this.token});
 
-  Future<String> fetchQRCode() async {
+  Future<Map<String, String>> fetchQRCode() async {
     final response = await http.get(
       Uri.parse('http://51.20.246.58/user'),
       headers: {
@@ -20,7 +20,10 @@ class MyQRCodeScreen extends StatelessWidget {
       final children = data['children'] as List<dynamic>;
       for (var child in children) {
         if (child['qr_code'] != null) {
-          return child['qr_code'];
+          return {
+            'qr_code': child['qr_code'],
+            'child_id': child['id'].toString(),
+          };
         }
       }
       throw Exception('No QR code found');
@@ -37,7 +40,7 @@ class MyQRCodeScreen extends StatelessWidget {
         title: Text('My QR Code'),
         centerTitle: true,
       ),
-      body: FutureBuilder<String>(
+      body: FutureBuilder<Map<String, String>>(
         future: fetchQRCode(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,13 +51,24 @@ class MyQRCodeScreen extends StatelessWidget {
             return Center(child: Text('No QR Code Available'));
           }
 
-          final qrCode = snapshot.data!;
+          final qrCode = snapshot.data!['qr_code']!;
+          final childId = snapshot.data!['child_id']!;
           return Center(
-            child: Image.network(
-              'http://51.20.246.58/storage/qr_codes/$qrCode', // Adjust URL based on your setup
-              width: 280, // Adjust size as needed
-              height: 280, // Adjust size as needed
-              fit: BoxFit.cover,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Child ID: $childId',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20),
+                Image.network(
+                  'http://51.20.246.58/storage/qr_codes/$qrCode', // Adjust URL based on your setup
+                  width: 280, // Adjust size as needed
+                  height: 280, // Adjust size as needed
+                  fit: BoxFit.cover,
+                ),
+              ],
             ),
           );
         },

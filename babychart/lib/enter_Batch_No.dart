@@ -13,6 +13,7 @@ class EnterBatchNo extends StatefulWidget {
 
 class _EnterBatchNoState extends State<EnterBatchNo> {
   final TextEditingController _batchNoController = TextEditingController();
+  final TextEditingController _childIdController = TextEditingController();
   String? _selectedVaccine;
 
   void _showSuccessMessage(BuildContext context) {
@@ -28,8 +29,9 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
     final batchNo = _batchNoController.text;
     final vaccine = _selectedVaccine;
     final scannedData = widget.scannedData;
+    final childId = _childIdController.text;
 
-    if (batchNo.isEmpty || vaccine == null) {
+    if (batchNo.isEmpty || vaccine == null || childId.isEmpty) {
       _showErrorMessage(context, 'Please fill all fields.');
       return;
     }
@@ -41,7 +43,7 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
       'adverse_effects': 'None',
       'age_to_be_vaccinated':
           DateTime.now().add(Duration(days: 30)).toIso8601String(),
-      'child_id': 20
+      'child_id': int.parse(childId) // Convert the child ID to integer
     };
 
     try {
@@ -182,6 +184,18 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
               ),
             ),
             SizedBox(height: 20),
+            // Child ID TextField
+            TextField(
+              controller: _childIdController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: 'Child ID',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
             // Enter Data Button
             ElevatedButton(
               onPressed: _submitData,
@@ -209,6 +223,7 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
   @override
   void dispose() {
     _batchNoController.dispose();
+    _childIdController.dispose();
     super.dispose();
   }
 }
