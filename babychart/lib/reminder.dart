@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class SendRemindersScreen extends StatefulWidget {
@@ -9,25 +8,55 @@ class SendRemindersScreen extends StatefulWidget {
 class _SendRemindersScreenState extends State<SendRemindersScreen> {
   String selectedAge = 'Select Age';
   String selectedArea = 'Select Area';
+  TextEditingController messageController = TextEditingController();
 
   List<String> ages = ['Select Age', '0-1', '1-2', '2-3', '3-4', '4-5'];
   List<String> areas = ['Select Area', 'Area 1', 'Area 2', 'Area 3', 'Area 4'];
 
+  void _sendReminder() {
+    String message = messageController.text;
+
+    if (message.isEmpty) {
+      // Show a message if the text field is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please enter a notification message.'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } else {
+      // Perform the send reminder action here
+      // ...
+
+      // Show a success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Reminder sent successfully!'),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pinkAccent,
-        title: Text('BabyChart'),
+        title: Text(
+          'BabyChart',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            // Handle back button press
+            Navigator.pop(context); // Handle back button press
           },
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +97,7 @@ class _SendRemindersScreenState extends State<SendRemindersScreen> {
                     }).toList(),
                   ),
                   SizedBox(height: 20),
-                  Text('Filter based on area'),
+                  Text('Filter based on Area'),
                   DropdownButton<String>(
                     value: selectedArea,
                     isExpanded: true,
@@ -84,16 +113,24 @@ class _SendRemindersScreenState extends State<SendRemindersScreen> {
                       );
                     }).toList(),
                   ),
+                  SizedBox(height: 20),
+                  Text('Notification Message'),
+                  TextField(
+                    controller: messageController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Enter your notification message here',
+                    ),
+                    maxLines: 3,
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle send reminder button press
-                },
-                child: Text('Send Reminder'),
+                onPressed: _sendReminder,
+                child: Text('Send Reminder', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pink,
                 ),
@@ -112,8 +149,8 @@ class UserProfile extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: NetworkImage('https://via.placeholder.com/150'),
-          radius: 25,
+          radius: 30,
+          backgroundImage: AssetImage('assets/midwife.png'), 
         ),
         SizedBox(width: 10),
         Text(

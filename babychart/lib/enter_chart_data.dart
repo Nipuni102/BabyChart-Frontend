@@ -25,10 +25,13 @@ class _EnterChartDataScreenState extends State<EnterChartData> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink,
-        title: Text('BabyChart'),
+         title: Text(
+          'BabyChart',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             // Handle back button press
             Navigator.pop(context);
@@ -44,7 +47,7 @@ class _EnterChartDataScreenState extends State<EnterChartData> {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundImage: AssetImage('assets/images/profile_picture.png'), // Replace with your image path
+                  backgroundImage: AssetImage('assets/midwife.png'), // Replace with your image path
                 ),
                 SizedBox(width: 10),
                 Text(

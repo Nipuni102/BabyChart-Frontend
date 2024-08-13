@@ -256,7 +256,7 @@ class ResponsiveNavBarPage extends StatelessWidget {
                   CircleAvatar(
                     radius: 30,
                     backgroundImage: AssetImage(
-                        'assets/profile_picture.png'), // Replace with your image path
+                        'assets/piumi.png'),
                   ),
                   SizedBox(height: 10),
                   Text(

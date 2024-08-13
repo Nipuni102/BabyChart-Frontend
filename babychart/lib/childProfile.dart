@@ -9,8 +9,14 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFCC31A1),
-        title: Text('BabyChart'),
+        title: Text(
+          'BabyChart',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set back arrow color to white
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications),

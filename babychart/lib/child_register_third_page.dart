@@ -17,7 +17,10 @@ class ChildRegisterThirdPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Additional Information'),
+        title: Text(
+          'Additional Information',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
         backgroundColor: Colors.pink,
         centerTitle: true,
       ),
