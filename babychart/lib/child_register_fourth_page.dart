@@ -9,7 +9,10 @@ class ChildRegisterFourthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Review and Submit'),
+          title: Text(
+          'Review and Sumbit',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
           backgroundColor: Colors.pink,
           centerTitle: true,
         ),

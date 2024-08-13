@@ -42,6 +42,8 @@ class Chart extends StatelessWidget {
                       child: const Text('Year 1'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink,
+                        foregroundColor:
+                            Colors.white, // Change text color to white
                       ),
                     ),
                     ElevatedButton(
@@ -49,6 +51,8 @@ class Chart extends StatelessWidget {
                       child: const Text('Year 2'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink,
+                        foregroundColor:
+                            Colors.white, // Change text color to white
                       ),
                     ),
                     ElevatedButton(
@@ -56,6 +60,8 @@ class Chart extends StatelessWidget {
                       child: const Text('Year 3'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink,
+                        foregroundColor:
+                            Colors.white, // Change text color to white
                       ),
                     ),
                   ],

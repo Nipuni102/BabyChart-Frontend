@@ -24,10 +24,13 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink,
-        title: Text('BabyChart'),
+        title: Text(
+          'BabyChart',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             // Handle back button press
             Navigator.pop(context);
@@ -43,7 +46,8 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundImage: AssetImage('assets/images/profile_picture.png'), // Replace with your image path
+                  backgroundImage: AssetImage(
+                      'assets/midwife.png'), // Replace with your image path
                 ),
                 SizedBox(width: 10),
                 Text(
@@ -69,7 +73,8 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
             // Dropdown for Vaccine Selection
             DropdownButtonFormField<String>(
               value: 'Select Vaccine',
-              items: ['Select Vaccine', 'Triple', 'MMR' ,'Rubella'].map((String value) {
+              items: ['Select Vaccine', 'Triple', 'MMR', 'Rubella']
+                  .map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
@@ -106,7 +111,8 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
             // Scan QR Code Button
             ElevatedButton.icon(
               onPressed: () {
-                controller?.resumeCamera(); // Resume the camera if it was paused
+                controller
+                    ?.resumeCamera(); // Resume the camera if it was paused
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.pink,
@@ -152,7 +158,8 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
       // Navigate to EnterBatchNo page after scanning the QR code
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => EnterBatchNo(scannedData: scannedData)),
+        MaterialPageRoute(
+            builder: (context) => EnterBatchNo(scannedData: scannedData)),
       );
     });
   }

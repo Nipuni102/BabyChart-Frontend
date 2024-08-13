@@ -37,8 +37,14 @@ class MyQRCodeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFCC31A1),
-        title: Text('My QR Code'),
+        title: Text(
+          'My QR Code',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.white, // Set back arrow color to white
+        ),
       ),
       body: FutureBuilder<Map<String, String>>(
         future: fetchQRCode(),

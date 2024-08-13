@@ -23,7 +23,10 @@ class _ChildRegisterFirstPageState extends State<ChildRegisterFirstPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Child'),
+       title: Text(
+          'Add New Child',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
         backgroundColor: Colors.pink,
         centerTitle: true,
       ),

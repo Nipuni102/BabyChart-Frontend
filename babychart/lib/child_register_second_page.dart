@@ -21,7 +21,10 @@ class ChildRegisterSecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Health Information'),
+          title: Text(
+          'Health Information',
+          style: TextStyle(color: Colors.white), // Set title color to black
+        ),
           backgroundColor: Colors.pink,
           centerTitle: true,
         ),
