@@ -24,7 +24,7 @@ class MidSignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFFF5B2D2),
+        backgroundColor: Color(0xFFD2A6FB),
         resizeToAvoidBottomInset: false,
         body: Form(
           key: _formKey,
