@@ -5,7 +5,8 @@ class ChildRegisterFirstPage extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController dateOfBirthController;
 
-  ChildRegisterFirstPage({
+  const ChildRegisterFirstPage({
+    super.key,
     required this.nameController,
     required this.dateOfBirthController,
   });
@@ -23,12 +24,16 @@ class _ChildRegisterFirstPageState extends State<ChildRegisterFirstPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       title: Text(
+        title: const Text(
           'Add New Child',
           style: TextStyle(color: Colors.white), // Set title color to black
         ),
-        backgroundColor: Colors.pink,
+        backgroundColor: Color(0xFF654089),
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.white, // White icon color
+        ),
+        // centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
@@ -40,14 +45,14 @@ class _ChildRegisterFirstPageState extends State<ChildRegisterFirstPage> {
                 radius: 50,
                 backgroundColor: Colors.grey[300],
                 child: IconButton(
-                  icon: Icon(Icons.camera_alt, size: 40),
+                  icon: const Icon(Icons.camera_alt, size: 40),
                   onPressed: () {
                     // Handle profile picture upload
                   },
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: widget.nameController,
               decoration: InputDecoration(
@@ -57,7 +62,7 @@ class _ChildRegisterFirstPageState extends State<ChildRegisterFirstPage> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: widget.dateOfBirthController,
               decoration: InputDecoration(
@@ -83,7 +88,7 @@ class _ChildRegisterFirstPageState extends State<ChildRegisterFirstPage> {
                 }
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: weightController,
               decoration: InputDecoration(
@@ -94,7 +99,7 @@ class _ChildRegisterFirstPageState extends State<ChildRegisterFirstPage> {
               ),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             DropdownButtonFormField<String>(
               value: gender,
               items: ['Select', 'Male', 'Female'].map((String value) {
@@ -115,8 +120,7 @@ class _ChildRegisterFirstPageState extends State<ChildRegisterFirstPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-          
+            const SizedBox(height: 20),
           ],
         ),
       ),

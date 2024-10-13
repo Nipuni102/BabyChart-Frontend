@@ -1,9 +1,12 @@
 import 'dart:io';
+
+import 'package:babychart/enter_Batch_No.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:babychart/enter_Batch_No.dart';
 
 class EnterVaccination extends StatefulWidget {
+  const EnterVaccination({super.key});
+
   @override
   _EnterVaccinationScreenState createState() => _EnterVaccinationScreenState();
 }
@@ -23,14 +26,14 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.pink,
-        title: Text(
+        backgroundColor: Color(0xFF8E42D6),
+        title: const Text(
           'BabyChart',
           style: TextStyle(color: Colors.white), // Set title color to black
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             // Handle back button press
             Navigator.pop(context);
@@ -42,12 +45,12 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
         child: Column(
           children: [
             // Profile Information
-            Row(
+            const Row(
               children: [
                 CircleAvatar(
                   radius: 30,
                   backgroundImage: AssetImage(
-                      'assets/midwife.png'), // Replace with your image path
+                      'assets/profile_pic.png'), // Replace with your image path
                 ),
                 SizedBox(width: 10),
                 Text(
@@ -59,9 +62,9 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Enter Vaccination Title
-            Text(
+            const Text(
               'Enter Vaccination',
               style: TextStyle(
                 fontSize: 24,
@@ -69,30 +72,30 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
                 color: Colors.purple,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Dropdown for Vaccine Selection
-            DropdownButtonFormField<String>(
-              value: 'Select Vaccine',
-              items: ['Select Vaccine', 'Triple', 'MMR', 'Rubella']
-                  .map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (newValue) {
-                // Handle vaccine selection
-              },
-              decoration: InputDecoration(
-                labelText: 'Vaccination',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
+            // DropdownButtonFormField<String>(
+            //   value: 'Select Vaccine',
+            //   items: ['Select Vaccine', 'Triple', 'MMR', 'Rubella']
+            //       .map((String value) {
+            //     return DropdownMenuItem<String>(
+            //       value: value,
+            //       child: Text(value),
+            //     );
+            //   }).toList(),
+            //   onChanged: (newValue) {
+            //     // Handle vaccine selection
+            //   },
+            //   decoration: InputDecoration(
+            //     labelText: 'Vaccination',
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //   ),
+            // ),
+            const SizedBox(height: 20),
             // Scan QR Code Section
-            Text(
+            const Text(
               'Scan your QR Code',
               style: TextStyle(
                 fontSize: 18,
@@ -100,36 +103,37 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
                 color: Colors.purple,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Expanded(
               child: QRView(
                 key: qrKey,
                 onQRViewCreated: _onQRViewCreated,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Scan QR Code Button
-            ElevatedButton.icon(
-              onPressed: () {
-                controller
-                    ?.resumeCamera(); // Resume the camera if it was paused
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.pink,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              ),
-              icon: Icon(Icons.qr_code_scanner),
-              label: Text(
-                'Scan QR Code',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
+            // ElevatedButton.icon(
+            //   onPressed: () {
+            //     controller
+            //         ?.resumeCamera(); // Resume the camera if it was paused
+            //   },
+            //   style: ElevatedButton.styleFrom(
+            //     backgroundColor: Color(0xFF654089),
+            //     foregroundColor: Colors.white,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(20),
+            //     ),
+            //     padding:
+            //         const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+            //   ),
+            //   // icon: const Icon(Icons.qr_code_scanner),
+            //   label: const Text(
+            //     'Scan QR Code',
+            //     style: TextStyle(
+            //       fontSize: 18,
+            //     ),
+            //   ),
+            // ),
             // Display Scanned Data if available
             if (scannedData != null) ...[
               // SizedBox(height: 20),

@@ -1,145 +1,98 @@
 import 'package:babychart/auth/mid_auth_service.dart';
 import 'package:babychart/theme/app_decorations.dart';
 import 'package:babychart/theme/custom_text_style.dart';
-import 'package:babychart/theme/theme_helper.dart';
 import 'package:babychart/widgets/custom_checkbox_button.dart';
 import 'package:babychart/widgets/custom_elevated_button.dart';
 import 'package:babychart/widgets/custom_text_form_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_gradient_button/outline_gradient_button.dart';
 
 class MidSignInPage extends StatelessWidget {
-  MidSignInPage({Key? key})
-      : super(
-          key: key,
-        );
+  MidSignInPage({super.key});
+
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool rememberMeCheckbox = false;
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final MidAuthService _authService = MidAuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final MidAuthService _authService = MidAuthService();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFFF5B2D2),
-        resizeToAvoidBottomInset: false,
-        body: Form(
-          key: _formKey,
-          child: SizedBox(
-            width: 390,
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: 840,
-                width: 390,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 23,
-                          vertical: 103,
-                        ),
-                        decoration: AppDecoration.fillwhiteA.copyWith(
-                          borderRadius: BorderRadiusStyle.roundedBorder50,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _buildUsernameSection(context),
-                            SizedBox(height: 10),
-                            _buildPasswordSection(context),
-                            SizedBox(height: 17),
-                            _buildRememberMeCheckbox(context),
-                            SizedBox(height: 7),
-                            SizedBox(
-                              height: 64,
-                              width: 236,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(bottom: 15),
-                                      child: Text(
-                                        "Sign In",
-                                        style: CustomTextStyles
-                                            .titleLargePoppinsWhiteA70001,
-                                      ),
-                                    ),
-                                  ),
-                                  CustomElevatedButton(
-                                    width: 236,
-                                    text: "Login",
-                                    onPressed: () {
-                                      onTapLogin(context);
-                                    },
-                                    alignment: Alignment.center,
-                                    buttonStyle: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty
-                                          .all<Color>(Color(
-                                              0xFFDF32B9)), // Change this to your desired color
-                                    ),
-                                  )
-                                ],
+        // Applying a linear gradient to the entire background of the page
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFB16FEF),
+                Color(0xFF651850),
+                Color(0xFF651850),
+                Color(0xFF651850)
+              ], // Example gradient colors
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Form(
+            key: _formKey,
+            child: SizedBox(
+              width: 420,
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: 880,
+                  width: 390,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 23,
+                            vertical: 90,
+                          ),
+                          decoration: AppDecoration.fillwhiteA.copyWith(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildUsernameSection(context),
+                              const SizedBox(height: 10),
+                              _buildPasswordSection(context),
+                              const SizedBox(height: 17),
+                              _buildRememberMeCheckbox(context),
+                              const SizedBox(height: 15),
+                              _buildSignInButton(context),
+                              const SizedBox(height: 15),
+                              Text(
+                                "Forget password?",
+                                style: CustomTextStyles.titleMediumGreen400,
                               ),
-                            ),
-                            SizedBox(height: 9),
-                            Text(
-                              "Forget password?",
-                              style: CustomTextStyles.titleMediumGreen400,
-                            ),
-                            SizedBox(height: 9),
-                            _buildLoginOptionsRow(context),
-                            SizedBox(height: 3),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 57,
-                                  width: 73,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 22,
-                                    vertical: 15,
-                                  ),
-                                  decoration:
-                                      AppDecoration.outlinePrimary4.copyWith(
-                                    borderRadius:
-                                        BorderRadiusStyle.roundedBorder16,
-                                  ),
-                                  child: Image(
-                                      image: AssetImage('assets/facebook.png')),
+                              const SizedBox(height: 15),
+                              // Add GestureDetector for sign-up navigation
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/midSignUp');
+                                },
+                                child: Text(
+                                  "Don’t have an account? Sign Up",
+                                  style: CustomTextStyles.titleMediumGreen400,
                                 ),
-                                Container(
-                                  height: 57,
-                                  width: 73,
-                                  margin: EdgeInsets.only(left: 45),
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 22,
-                                    vertical: 15,
-                                  ),
-                                  decoration:
-                                      AppDecoration.outlinePrimary4.copyWith(
-                                    borderRadius:
-                                        BorderRadiusStyle.roundedBorder16,
-                                  ),
-                                  child: Image(
-                                      image: AssetImage('assets/google.png')),
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 4)
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    _buildLoginImageStack(context)
-                  ],
+                      _buildLoginImageStack(context),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -151,88 +104,70 @@ class MidSignInPage extends StatelessWidget {
 
   Widget _buildUsernameSection(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 7),
-      padding: EdgeInsets.symmetric(horizontal: 2),
+      margin: const EdgeInsets.only(left: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 7),
           Padding(
-            padding: EdgeInsets.only(left: 1),
+            padding: const EdgeInsets.only(left: 1),
             child: Text(
               "User Name",
               style: CustomTextStyles.titleLargeMulish,
             ),
           ),
-          SizedBox(height: 7),
+          const SizedBox(height: 7),
           OutlineGradientButton(
-            padding: EdgeInsets.only(
-              left: 1,
-              top: 1,
-              right: 1,
-              bottom: 1,
-            ),
+            padding: const EdgeInsets.all(1),
             strokeWidth: 1,
-            gradient: LinearGradient(
-              begin: Alignment(0.5, 0),
-              end: Alignment(0.5, 1),
+            gradient: const LinearGradient(
               colors: [
-                appTheme.purple40001,
-                theme.colorScheme.secondaryContainer
-              ],
+                Color(0xFF8E42D6),
+                Color(0xFFCC31A1)
+              ], // Example gradient colors for the field
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
-            corners: Corners(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15),
-            ),
+            radius: const Radius.circular(15),
             child: CustomTextFormField(
               controller: userNameController,
               hintText: "Username",
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  /// Section Widget
-
   Widget _buildPasswordSection(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 7),
+      padding: const EdgeInsets.only(left: 7),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 3),
+            padding: const EdgeInsets.only(left: 3),
             child: Text(
               "Password",
               style: CustomTextStyles.titleLargeMulish,
             ),
           ),
-          SizedBox(height: 9),
+          const SizedBox(height: 9),
           Padding(
-            padding: EdgeInsets.only(right: 7),
+            padding: const EdgeInsets.only(right: 7),
             child: OutlineGradientButton(
-              padding: const EdgeInsets.only(
-                left: 1,
-                top: 1,
-                right: 1,
-                bottom: 1,
-              ),
+              padding: const EdgeInsets.all(1),
               strokeWidth: 1,
-              gradient: LinearGradient(
-                begin: Alignment(0.5, 0),
-                end: Alignment(0.5, 1),
-                colors: [appTheme.purple40001, appTheme.blueA200],
+              gradient: const LinearGradient(
+                colors: [
+                  Color(0xFF8E42D6),
+                  Color(0xFFCC31A1)
+                ], // Gradient for the password field
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              corners: const Corners(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15),
-              ),
+              radius: const Radius.circular(15),
               child: CustomTextFormField(
                 controller: passwordController,
                 hintText: "Password",
@@ -242,7 +177,7 @@ class MidSignInPage extends StatelessWidget {
                 borderDecoration: TextFormFieldStyleHelper.outlineTL15,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -252,7 +187,7 @@ class MidSignInPage extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.only(left: 7),
+        padding: const EdgeInsets.only(left: 7),
         child: CustomCheckboxButton(
           alignment: Alignment.centerLeft,
           text: "Remember Me",
@@ -265,61 +200,66 @@ class MidSignInPage extends StatelessWidget {
     );
   }
 
-  /// Section Widget
-
-  Widget _buildLoginOptionsRow(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildSignInButton(BuildContext context) {
+    return SizedBox(
+      height: 64,
+      width: 236,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(
-              top: 9,
-              bottom: 13,
-            ),
-            child: SizedBox(
-              width: 87,
-              child: Divider(),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: Text(
+                "Sign In",
+                style: CustomTextStyles.titleLargePoppinsWhiteA70001,
+              ),
             ),
           ),
-          Text(
-            "Or Login with",
-            style: theme.textTheme.titleMedium,
+          CustomElevatedButton(
+            width: 236,
+            height: 80,
+            text: "Login",
+            onPressed: () {
+              onTapLogin(context);
+            },
+            alignment: Alignment.center,
+            buttonStyle: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                const Color(0xFF654089), // Background color
+              ),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14), // Border radius
+                  side: const BorderSide(
+                    color: Color(0xFF654089), // Border color
+                    width: 2.0, // Border width
+                  ),
+                ),
+              ),
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: 9,
-              bottom: 13,
-            ),
-            child: SizedBox(
-              width: 99,
-              child: Divider(),
-            ),
-          )
         ],
       ),
     );
   }
-
-  /// Section Widget
 
   Widget _buildLoginImageStack(BuildContext context) {
     return Stack(
       fit: StackFit.expand, // Ensure the Stack fills the parent
       children: [
         Positioned(
-          top: 0,
+          top: 50,
           left: 0,
           right: 0,
           child: Image(
-            image: AssetImage('assets/midSignIn.png'),
+            image: const AssetImage('assets/midwife_login.png'),
             width: MediaQuery.of(context).size.width,
           ),
         ),
         const Positioned(
-          top: 200, // Adjust the fraction as needed
+          top: 320, // Adjust the fraction as needed
           left: 0,
           right: 0,
           child: Center(
@@ -337,16 +277,13 @@ class MidSignInPage extends StatelessWidget {
     );
   }
 
-  /// Navigates to the androidLarge19Screen when the action is triggered.
-
-   void onTapLogin(BuildContext context) async {
+  void onTapLogin(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       try {
         final response = await _authService.login(
           userNameController.text,
           passwordController.text,
         );
-
         Navigator.pushNamed(context, '/midHome');
         print('Login Successful: ${response['message']}');
       } catch (e) {
