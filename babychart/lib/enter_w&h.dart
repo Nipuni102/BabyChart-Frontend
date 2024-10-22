@@ -1,3 +1,4 @@
+import 'package:babychart/midChart.dart';
 import 'package:flutter/material.dart';
 
 class EnterWH extends StatelessWidget {
@@ -140,6 +141,10 @@ class EnterWH extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // Handle Enter Data button press
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => MidChartScreen()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF654089),

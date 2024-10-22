@@ -18,9 +18,9 @@ class Chart extends StatelessWidget {
             const Text(
               'Charts', // Title text
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF9E64B4), // Matches the card border color
+                color: Color(0xFF67418C), // Matches the card border color
               ),
             ),
             const SizedBox(

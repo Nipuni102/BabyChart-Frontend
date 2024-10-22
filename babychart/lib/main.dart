@@ -13,7 +13,6 @@ import 'package:babychart/selectingPage.dart';
 import 'package:babychart/signInPage.dart';
 import 'package:babychart/signUpPage.dart';
 import 'package:babychart/welcome_page.dart';
-import 'package:babychart/widgets/OTP.dart';
 import 'package:babychart/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -42,9 +41,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/splash',
       routes: {
         '/splash': (context) => SplashScreen(),
+        // '/splash': (context) => DescriptionPage(),
 
         '/': (context) => WelcomePage(),
-        '/otp': (context) => OtpScreen(),
+        // '/otp': (context) => OtpScreen(),
         '/nav': (context) => ResponsiveNavBarPage(),
         '/immunization': (context) => ImmunizationH(),
         '/charts': (context) => Chart(),
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         '/enterVaccination': (context) => EnterVaccination(),
         '/addChildSecPage': (context) => AddNewChildSecScreen(),
         '/addChildThirdPage': (context) => AddNewChildThirdScreen(),
-        '/addChildFirstPage': (context) => AddNewChildScreen(), 
+        '/addChildFirstPage': (context) => AddNewChildScreen(),
         '/addChildFourthPage': (context) => AddNewChildFourthScreen(),
 
         // '/activity': (context) => ActivitiesScreen(),

@@ -223,7 +223,10 @@ class _SelectChildState extends State<SelectChild> {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
-                'assets/child.png', // Child image placeholder
+                child['id']?.toString() == '48'
+                    ? 'assets/child.png'
+                    : 'assets/child1.png',
+                // Child image placeholder
                 width: 150,
                 height: 200,
                 fit: BoxFit.cover,
@@ -239,7 +242,9 @@ class _SelectChildState extends State<SelectChild> {
               child: Column(
                 children: [
                   Text(
-                    child['name'] ?? 'No Name',
+                    child['id']?.toString() == '48'
+                        ? 'Kivein Vinuk'
+                        : 'Neksha Mevi',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -249,7 +254,7 @@ class _SelectChildState extends State<SelectChild> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    '${child['age']} Old', // Display child's age
+                    child['age'] ?? '2 months',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Color.fromARGB(255, 82, 82, 82),
@@ -258,7 +263,7 @@ class _SelectChildState extends State<SelectChild> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    child['dob'] ?? 'Unknown Birthdate',
+                    child['dob'] ?? 'september 1, 2024',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Color.fromARGB(255, 82, 82, 82),

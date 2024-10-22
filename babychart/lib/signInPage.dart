@@ -1,10 +1,10 @@
 import 'package:babychart/API/token.dart';
 import 'package:babychart/auth/auth_service.dart';
-import 'package:babychart/selectChild.dart';
 import 'package:babychart/signUpPage.dart';
 import 'package:babychart/theme/app_decorations.dart';
 import 'package:babychart/theme/custom_text_style.dart';
 import 'package:babychart/theme/theme_helper.dart';
+import 'package:babychart/widgets/OTP.dart';
 import 'package:babychart/widgets/custom_checkbox_button.dart';
 import 'package:babychart/widgets/custom_elevated_button.dart';
 import 'package:babychart/widgets/custom_text_form_field.dart';
@@ -402,14 +402,15 @@ class SignInPage extends StatelessWidget {
         print(token);
 
         AuthToken().token = token;
-        //Navigator.pushNamed(context, '/nav');
+
+        // After login, navigate to OTP screen
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SelectChild(token: token),
+            builder: (context) =>
+                OtpScreen(token: token), // Navigate to OTP screen
           ),
         );
-        print('Login Successful: ${response['message']}');
       } catch (e) {
         // Handle error (e.g., show error message)
         print('Login Failed: $e');

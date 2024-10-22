@@ -19,7 +19,7 @@ class DevelopmentScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.purple,
+                color: Color(0xFF67418C),
               ),
             ),
           ),

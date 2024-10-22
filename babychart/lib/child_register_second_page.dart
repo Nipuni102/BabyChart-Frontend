@@ -26,8 +26,11 @@ class ChildRegisterSecondPage extends StatelessWidget {
             'Health Information',
             style: TextStyle(color: Colors.white), // Set title color to black
           ),
-          backgroundColor: Colors.pink,
+          backgroundColor: Color(0xFF654089),
           centerTitle: true,
+          iconTheme: const IconThemeData(
+            color: Colors.white, // White icon color
+          ),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

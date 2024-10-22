@@ -10,11 +10,14 @@ class ChildRegisterFourthPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Review and Sumbit',
-          style: TextStyle(color: Colors.white), // Set title color to black
+          'Review and Submit', // Corrected the typo
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.pink,
+        backgroundColor: Color(0xFF654089),
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -28,8 +31,10 @@ class ChildRegisterFourthPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: submitForm,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.pink,
+                    backgroundColor: Color(0xFF654089),
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    foregroundColor:
+                        Colors.white, // Correct way to set text color
                   ),
                   child: const Text('Submit'),
                 ),

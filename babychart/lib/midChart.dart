@@ -2,8 +2,8 @@ import 'package:babychart/tip_page.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class ChartScreen extends StatelessWidget {
-  const ChartScreen({super.key});
+class MidChartScreen extends StatelessWidget {
+  const MidChartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +214,7 @@ class ChartScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 12), // Space between image and text
                       const Text(
-                        'Growth Insights',
+                        'Track Activity History',
                         style: TextStyle(
                           fontSize: 16,
                           color: Color.fromARGB(255, 75, 75, 75),

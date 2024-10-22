@@ -1,4 +1,3 @@
-import 'package:babychart/theme/app_decorations.dart';
 import 'package:babychart/theme/custom_text_style.dart';
 import 'package:babychart/theme/theme_helper.dart';
 import 'package:babychart/widgets/custom_elevated_button.dart';
@@ -19,117 +18,121 @@ class MidSignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xFFF5B2D2),
         resizeToAvoidBottomInset: false,
-        body: Form(
-          key: _formKey,
-          child: SizedBox(
-            width: 390,
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: 840,
-                width: 390,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 23,
-                          vertical: 103,
-                        ),
-                        decoration: AppDecoration.fillwhiteA.copyWith(
-                          borderRadius: BorderRadiusStyle.roundedBorder50,
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _buildUsernameSection(context),
-                            const SizedBox(height: 8),
-                            _buildPasswordSection(context),
-                            const SizedBox(height: 8),
-                            _buildEmailSection(context),
-                            const SizedBox(height: 7),
-                            SizedBox(
-                              height: 64,
-                              width: 236,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  /*Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(bottom: 15),
-                                      child: Text(
-                                        "Sign In",
-                                        style: CustomTextStyles
-                                            .titleLargePoppinsWhiteA70001,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFB16FEF),
+                Color(0xFF651850),
+                Color(0xFF651850),
+                Color(0xFF651850),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Form(
+            key: _formKey,
+            child: SizedBox(
+              width: double.infinity,
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: 900,
+                  width: 390,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 23,
+                            vertical: 103,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildUsernameSection(context),
+                              const SizedBox(height: 8),
+                              _buildPasswordSection(context),
+                              const SizedBox(height: 8),
+                              _buildEmailSection(context),
+                              const SizedBox(height: 7),
+                              SizedBox(
+                                height: 64,
+                                width: 236,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    CustomElevatedButton(
+                                      width: 236,
+                                      text: "Sign Up",
+                                      onPressed: () {
+                                        onTapLogin(context);
+                                      },
+                                      alignment: Alignment.center,
+                                      buttonStyle: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                          const Color(0xFF654089),
+                                        ),
                                       ),
                                     ),
-                                  ),*/
-                                  CustomElevatedButton(
-                                    width: 236,
-                                    text: "Sign Up",
-                                    onPressed: () {
-                                      onTapLogin(context);
-                                    },
-                                    alignment: Alignment.center,
-                                    buttonStyle: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty
-                                          .all<Color>(const Color(
-                                              0xFFDF32B9)), // Change this to your desired color
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 1),
+                              _buildLoginOptionsRow(context),
+                              const SizedBox(height: 1),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 57,
+                                    width: 73,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 22,
+                                      vertical: 15,
                                     ),
-                                  )
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: const Image(
+                                      image: AssetImage('assets/facebook.png'),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 57,
+                                    width: 73,
+                                    margin: const EdgeInsets.only(left: 45),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 22,
+                                      vertical: 15,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: const Image(
+                                      image: AssetImage('assets/google.png'),
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                            const SizedBox(height: 1),
-                            _buildLoginOptionsRow(context),
-                            const SizedBox(height: 1),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 57,
-                                  width: 73,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 22,
-                                    vertical: 15,
-                                  ),
-                                  decoration:
-                                      AppDecoration.outlinePrimary4.copyWith(
-                                    borderRadius:
-                                        BorderRadiusStyle.roundedBorder16,
-                                  ),
-                                  child: const Image(
-                                      image: AssetImage('assets/facebook.png')),
-                                ),
-                                Container(
-                                  height: 57,
-                                  width: 73,
-                                  margin: const EdgeInsets.only(left: 45),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 22,
-                                    vertical: 15,
-                                  ),
-                                  decoration:
-                                      AppDecoration.outlinePrimary4.copyWith(
-                                    borderRadius:
-                                        BorderRadiusStyle.roundedBorder16,
-                                  ),
-                                  child: const Image(
-                                      image: AssetImage('assets/google.png')),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 4)
-                          ],
+                              const SizedBox(height: 4),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    _buildLoginImageStack(context)
-                  ],
+                      _buildLoginImageStack(context),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -339,7 +342,7 @@ class MidSignUpPage extends StatelessWidget {
           ),
         ),
         const Positioned(
-          top: 200, // Adjust the fraction as needed
+          top: 250, // Adjust the fraction as needed
           left: 0,
           right: 0,
           child: Center(
@@ -348,7 +351,7 @@ class MidSignUpPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 44, // Adjust the font size as needed
                 fontWeight: FontWeight.bold, // Make the text bold
-                color: Color(0xFFDF32B9), // Set the text color
+                color: Color(0xFF654089), // Set the text color
               ),
             ),
           ),

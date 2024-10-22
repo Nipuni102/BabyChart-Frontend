@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-// TrackingScreen Widget
 class TrackingScreen extends StatelessWidget {
   const TrackingScreen({super.key});
 
@@ -26,8 +26,6 @@ class TrackingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 25), // Correct placement of the SizedBox
-            // Grid for cards (Feed, Nappy, Sleep, Health)
-
             Text(
               'Tracking',
               style: TextStyle(
@@ -44,16 +42,16 @@ class TrackingScreen extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 children: [
-                  buildOptionCard('Feed', 'assets/feed.png'),
-                  buildOptionCard('Nappy', 'assets/nappy.png'),
-                  buildOptionCard('Sleep', 'assets/sleep.png'),
-                  buildOptionCard('Health', 'assets/health.png'),
+                  buildOptionCard('Feed', 'assets/feed.png', null),
+                  buildOptionCard('Nappy', 'assets/nappy.png', null),
+                  buildOptionCard('Sleep', 'assets/sleep.png',
+                      'https://baby-chart-sleep-tracker.vercel.app'),
+                  buildOptionCard('Health', 'assets/health.png', null),
                 ],
               ),
             ),
             const SizedBox(height: 10),
 
-            // Recent Entries Section
             const Center(
               child: Text(
                 'Recent Entries',
@@ -66,7 +64,6 @@ class TrackingScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // Rounded containers for recent entries with different images
             buildRecentEntryCard('Sleep', 'Piyumi slept 7hr and 30 min',
                 '9:00 p.m\n    to\n 4:30 a.m', 'assets/sleep_image.png'),
             buildRecentEntryCard('Diaper', 'Piyumi had wet diaper', '11:30 a.m',
@@ -77,34 +74,35 @@ class TrackingScreen extends StatelessWidget {
     );
   }
 
-  // Function to build each option card with a background image
-  Widget buildOptionCard(String title, String imagePath) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(
-          image: AssetImage(imagePath), // Use the image as the background
-          fit: BoxFit.cover, // Cover the entire card
-        ),
-      ),
-      padding: const EdgeInsets.all(5),
-      child: Column(
-        children: [
-          const SizedBox(height: 135), // Add more space below the image
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF654089), // Adjust the text color
-            ),
+  Widget buildOptionCard(String title, String imagePath, String? url) {
+    return InkWell(
+      onTap: url != null ? () => _launchURL(url) : null,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
           ),
-        ],
+        ),
+        padding: const EdgeInsets.all(5),
+        child: Column(
+          children: [
+            const SizedBox(height: 135),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF654089),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  // Function to build recent entry card with title, description, time, and image
   Widget buildRecentEntryCard(
       String title, String description, String time, String imagePath) {
     return Container(
@@ -124,12 +122,10 @@ class TrackingScreen extends StatelessWidget {
                 radius: 25,
                 backgroundColor: Colors.purple,
                 child: ClipOval(
-                  // Clip the image to fit within the CircleAvatar
                   child: Image.asset(
-                    imagePath, // Use the image path passed to the function
+                    imagePath,
                     fit: BoxFit.cover,
-                    width:
-                        40, // Adjust width and height to fit properly inside CircleAvatar
+                    width: 40,
                     height: 40,
                   ),
                 ),
@@ -167,5 +163,13 @@ class TrackingScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Function to launch the URL using Uri and launchUrl
+  void _launchURL(String url) async {
+    final Uri uri = Uri.parse(url); // Parse the URL into Uri
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch $url';
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:babychart/selectChild.dart'; // Assuming this is the next screen after OTP
 import 'package:babychart/signInPage.dart';
 import 'package:flutter/material.dart';
 
@@ -8,12 +9,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'OTP Verification',
-      home: OtpScreen(),
+      home:
+          OtpScreen(token: 'dummy_token'), // Passing a dummy token for testing
     );
   }
 }
 
 class OtpScreen extends StatefulWidget {
+  final String token; // Token passed from SignInPage
+
+  OtpScreen({required this.token});
+
   @override
   _OtpScreenState createState() => _OtpScreenState();
 }
@@ -52,8 +58,7 @@ class _OtpScreenState extends State<OtpScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            // Navigate back to the SignUp page explicitly using the named route
-            Navigator.pushReplacementNamed(context, '/signUp');
+            Navigator.pop(context); // Use pop to go back to previous screen
           },
         ),
       ),
@@ -95,7 +100,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     SizedBox(height: 30),
                     Text(
-                      'Enter the verification code we just sent on your email address',
+                      'Enter the verification code we just sent to your email address',
                       style: TextStyle(color: Colors.black54),
                     ),
                     SizedBox(height: 30),
@@ -119,14 +124,13 @@ class _OtpScreenState extends State<OtpScreen> {
                         height: 60,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Verification action
+                            _verifyOtp(context); // OTP verification logic
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 Color(0xFF67418C), // Background color
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  12), // Change border radius here
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                           child: Text(
@@ -144,14 +148,14 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: TextButton(
                         onPressed: () {
                           // Navigate to LoginScreen when pressed
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SignInPage()),
                           );
                         },
                         child: Text(
-                          'Already have account? Login',
+                          'Already have an account? Login',
                           style: TextStyle(color: Color(0xFF67418C)),
                         ),
                       ),
@@ -178,7 +182,6 @@ class _OtpScreenState extends State<OtpScreen> {
       child: TextField(
         controller: controller,
         focusNode: currentFocus,
-        autofocus: true,
         textAlign: TextAlign.center,
         keyboardType: TextInputType.number,
         maxLength: 1,
@@ -202,5 +205,27 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
       ),
     );
+  }
+
+  // Method to verify the OTP
+  void _verifyOtp(BuildContext context) {
+    String otp = _firstController.text +
+        _secondController.text +
+        _thirdController.text +
+        _fourthController.text;
+
+    if (otp == '1234') {
+      // Dummy OTP validation
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SelectChild(
+                token: widget.token)), // Navigate to the next screen
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Invalid OTP')),
+      );
+    }
   }
 }
