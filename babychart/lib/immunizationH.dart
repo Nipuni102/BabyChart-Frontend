@@ -26,7 +26,7 @@ class _ImmunizationHState extends State<ImmunizationH> {
       if (token == null || token.isEmpty) {
         throw Exception('No token found');
       }
-      futureVaccines = ApiService('http://51.20.246.58', token).fetchVaccines();
+      futureVaccines = ApiService('https://babychart-backend-main-0x5cib.laravel.cloud', token).fetchVaccines();
       setState(() {});
     } catch (e) {
       print('Failed to initialize vaccines: $e');

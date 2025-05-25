@@ -15,7 +15,7 @@ class SelectChild extends StatefulWidget {
 class _SelectChildState extends State<SelectChild> {
   Future<Map<String, dynamic>> fetchUserDetails() async {
     final response = await http.get(
-      Uri.parse('http://51.20.246.58/user'),
+      Uri.parse('https://babychart-backend-main-0x5cib.laravel.cloud/user'),
       headers: {
         'Authorization': 'Bearer ${widget.token}',
       },

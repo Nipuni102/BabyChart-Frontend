@@ -99,7 +99,7 @@ class _ChildRegisterState extends State<ChildRegister> {
 
         final request = http.MultipartRequest(
           'POST',
-          Uri.parse('http://51.20.246.58/children'),
+          Uri.parse('https://babychart-backend-main-0x5cib.laravel.cloud/children'),
         );
 
         request.fields.addAll(childData);
