@@ -28,7 +28,7 @@ class _EnterVaccinationScreenState extends State<EnterVaccination> {
       appBar: AppBar(
         backgroundColor: Color(0xFF8E42D6),
         title: const Text(
-          'BabyChart',
+          'Meribel',
           style: TextStyle(color: Colors.white), // Set title color to black
         ),
         centerTitle: true,

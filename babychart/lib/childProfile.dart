@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xFF8E42D6),
         title: const Text(
-          'BabyChart',
+          'Meribel',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,

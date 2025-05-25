@@ -17,7 +17,7 @@ class VaccineDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF67418C),
-        title: const Text('BabyChart'),
+        title: const Text('Meribel'),
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [

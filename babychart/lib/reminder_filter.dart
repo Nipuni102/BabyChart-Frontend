@@ -8,7 +8,7 @@ class SendRemindersScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pinkAccent,
-        title: const Text('BabyChart'),
+        title: const Text('Meribel'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {

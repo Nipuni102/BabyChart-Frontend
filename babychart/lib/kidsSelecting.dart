@@ -9,7 +9,7 @@ class KidsSelecting extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFFDF32B9),
-        title: const Text('BabyChart'),
+        title: const Text('Meribel'),
         actions: const [
           CircleAvatar(
             backgroundImage: NetworkImage(

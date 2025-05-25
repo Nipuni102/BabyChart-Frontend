@@ -28,7 +28,7 @@ class _EnterChartDataScreenState extends State<EnterChartData> {
       appBar: AppBar(
         backgroundColor: Color(0xFF654089),
         title: const Text(
-          'BabyChart',
+          'Meribel',
           style: TextStyle(color: Colors.white), // Set title color to black
         ),
         centerTitle: true,
