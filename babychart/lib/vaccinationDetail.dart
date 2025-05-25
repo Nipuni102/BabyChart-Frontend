@@ -15,7 +15,7 @@ class ImmunizationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pink,
-        title: const Text('BabyChart'),
+        title: const Text('Meribel'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -135,7 +135,7 @@ class VaccinationDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF67418C),
-        title: const Text('BabyChart'),
+        title: const Text('Meribel'),
         centerTitle: true,
       ),
       body: Container(

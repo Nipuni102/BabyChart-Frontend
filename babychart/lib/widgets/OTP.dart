@@ -71,7 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
               // Title positioned outside the white box
               Center(
                 child: Text(
-                  'BabyChart',
+                  'Meribel',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 32,

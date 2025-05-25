@@ -84,7 +84,7 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
       appBar: AppBar(
         backgroundColor: Color(0xFF8E42D6),
         title: const Text(
-          'BabyChart',
+          ' Meribel',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,

@@ -210,7 +210,7 @@ class ResponsiveNavBarPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Baby Chart",
+                  "Meribel",
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
