@@ -48,7 +48,7 @@ class _EnterBatchNoState extends State<EnterBatchNo> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://51.20.246.58/vaccines'),
+        Uri.parse('https://babychart-backend-main-0x5cib.laravel.cloud/vaccines'),
         headers: {
           'Content-Type': 'application/json',
           // Add other headers if needed

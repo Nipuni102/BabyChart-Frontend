@@ -9,7 +9,7 @@ class MyQRCodeScreen extends StatelessWidget {
 
   Future<Map<String, String>> fetchQRCode() async {
     final response = await http.get(
-      Uri.parse('http://51.20.246.58/user'),
+      Uri.parse('https://babychart-backend-main-0x5cib.laravel.cloud/user'),
       headers: {
         'Authorization': 'Bearer $token',
       },
